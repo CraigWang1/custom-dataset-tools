@@ -4,6 +4,10 @@
 Created on Sat Jan 18 18:20:06 2020
 
 @author: craig
+Script to set a shortcut key of 'e' while labelling images
+using labelImg. The shortcut automatically saves the label
+and presses 'd' to move on to the next image, making the process
+much more efficient.
 """
 
 import pynput

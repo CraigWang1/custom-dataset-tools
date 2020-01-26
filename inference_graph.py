@@ -4,6 +4,7 @@
 Created on Sat Jan 11 14:17:00 2020
 
 @author: craig
+Script to help visualize the predictions of object detection models.
 """
 import matplotlib.pyplot as plt
 import matplotlib

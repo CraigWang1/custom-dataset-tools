@@ -4,7 +4,7 @@
 Created on Sat Jan 25 13:55:44 2020
 
 @author: craig
-Script to convert image dataset into COCO format.
+Script to format an image dataset to COCO format.
 """
 
 import json

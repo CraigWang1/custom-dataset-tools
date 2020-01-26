@@ -6,3 +6,5 @@ In this repository you will find
 - a simple script to help visualize the predictions of object detection models
 
 I hope these tools help; feel free to let me know should any issues/questions arise.
+
+Original xml_to_json script: https://github.com/Tony607/voc2coco

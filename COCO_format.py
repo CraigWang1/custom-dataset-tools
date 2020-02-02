@@ -63,7 +63,7 @@ coco_imgs_dir = osp.join(coco, 'images')
 START_BOUNDING_BOX_ID = 1
 
  #If necessary, pre-define category and its id
-PRE_DEFINE_CATEGORIES = {"gate":1}
+PRE_DEFINE_CATEGORIES = None         ###################CHANGE THIS FOR EACH DATASET
 
 
 def get(root, name):
@@ -125,12 +125,13 @@ def convert(xml_files, json_file):
         tree = ET.parse(xml_file)
         root = tree.getroot()
         path = get(root, "path")
-        if len(path) == 1:
-            filename = os.path.basename(path[0].text)
-        elif len(path) == 0:
-            filename = get_and_check(root, "filename", 1).text
-        else:
-            raise ValueError("%d paths found in %s" % (len(path), xml_file))
+        filename = get_and_check(root, "filename", 1).text
+#        if len(path) == 1:
+#            filename = os.path.basename(path[0].text)
+#        elif len(path) == 0:
+#            filename = get_and_check(root, "filename", 1).text
+#        else:
+#            raise ValueError("%d paths found in %s" % (len(path), xml_file))
         ## The filename must be a number
         image_id = get_filename_as_int(filename)
         size = get_and_check(root, "size", 1)
@@ -260,7 +261,7 @@ def resize_and_copy():
     assert isinstance(args.target_size, tuple) and len(args.target_size) == 2, msg  #see if the inputs are valid
          
     print(
-        "{} files to resize from directory `{}` to target size: {}".format(
+        "{} images to resize from directory `{}` to target size: {}".format(
             len(fnames), args.image_dir, args.target_size
         )
     )
@@ -286,7 +287,7 @@ def copy():
     fnames = glob.glob(os.path.join(args.image_dir, "*.{}".format(args.ext)))   #gets all file names in img_dir
          
     print(
-        "{} files to copy from directory `{}`".format(
+        "{} images to copy from directory `{}`".format(
             len(fnames), args.image_dir
         )
     )
@@ -353,7 +354,7 @@ def helper_convert(train_annots, val_annots):
         train_annots = glob.glob(osp.join(temp_train_xmls, '*'))
         val_annots = glob.glob(osp.join(temp_val_xmls, '*'))  #get all of the adjusted train and val xmls
     
-    print('Converting annotations to coco json format...')
+    print('\nConverting annotations to coco json format...')
     convert(train_annots, train_json)
     convert(val_annots, val_json)   #convert the anntotations xmls into coco json files
     

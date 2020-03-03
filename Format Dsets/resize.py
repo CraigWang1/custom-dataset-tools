@@ -4,6 +4,9 @@
 Created on Sat Feb 15 19:04:59 2020
 
 @author: craig
+Script to resize directory of images and/or Pascal VOC annotation xml files
+to target size (eg. x, y) or one_side (one side is x, the other side depends
+based on the original ratio so there's no distortion).
 """
 
 import os, glob, cv2, argparse

@@ -104,8 +104,9 @@ def get_categories(xml_files):
     Returns:
         dict -- category name to id mapping.
     """
+    print("\nGetting categories from xml annotations...")
     classes_names = []
-    for xml_file in xml_files:
+    for xml_file in tqdm(xml_files):
         tree = ET.parse(xml_file)
         root = tree.getroot()
         for member in root.findall("object"):
@@ -114,9 +115,9 @@ def get_categories(xml_files):
     classes_names.sort()
     return {name: i for i, name in enumerate(classes_names)}
 
-def convert(xml_files, new_dims, json_file):
+def convert(xml_files, new_dims, json_file, categories):
     json_dict = {"images": [], "type": "instances", "annotations": [], "categories": []}
-    categories = get_categories(xml_files)
+    #categories = get_categories(xml_files, mode)   #get categories (classes/labels)
     bnd_id = START_BOUNDING_BOX_ID
     for i, xml_file in enumerate(tqdm(xml_files)):
         tree = ET.parse(xml_file)
@@ -142,7 +143,7 @@ def convert(xml_files, new_dims, json_file):
         #  assert segmented == '0'
         for obj in get(root, "object"):
             category = get_and_check(obj, "name", 1).text
-            if category not in categories:
+            if category not in categories: #i dont think this will happen because the categories came from all the xml files
                 new_id = len(categories)
                 categories[category] = new_id
             category_id = categories[category]
@@ -237,11 +238,12 @@ def copy():
     #gets all of the corresponding xml file names (not full path, just name with xml extension)
     xmls = [osp.splitext(osp.basename(f))[0] + '.xml' for f in fnames] 
     xmls = [osp.join(args.annot_dir, xml) for xml in xmls]
-    
+
     #split train and validations images and annotations
     num_imgs = len(fnames)
     ix = int(num_imgs * args.train_test_split)
     
+    #Train test split
     train_imgs = fnames[:ix]
     train_annots = xmls[:ix]
     val_imgs = fnames[ix:]
@@ -251,8 +253,10 @@ def copy():
     train_dims = helper_copy(train_imgs, mode='train')  #resizes and saves the images
     val_dims = helper_copy(val_imgs, mode='val')  #resizes and saves the images
     
-    helper_convert(train_annots, train_dims, mode='train')  #converts xml annotations to coco json format
-    helper_convert(val_annots, val_dims, mode='val')
+    #convert annotations to coco json format
+    categories = get_categories(xmls)   #get categories (classes/labels) for coco format
+    helper_convert(train_annots, train_dims, categories, mode='train')  #converts xml annotations to coco json format
+    helper_convert(val_annots, val_dims, categories, mode='val')
 
 def helper_copy(imgs, mode='train'):
     img_dir = osp.join(coco_imgs_dir, '{}2017'.format(mode))
@@ -274,14 +278,14 @@ def helper_copy(imgs, mode='train'):
             shutil.copyfile(f, new_fpath)
     return resized_dims
 
-def helper_convert(annots, dims, mode='train'):
+def helper_convert(annots, dims, categories, mode='train'):
     #set json filepath
     json = osp.join(coco, 'annotations/instances_{}2017.json'.format(mode))
     print('\nConverting {} annotations to coco json format...'.format(mode))
-    convert(annots, dims, json)
+    convert(annots, dims, json, categories)
 
 if __name__ == '__main__':
     create_dirs()
     copy()
     print('\nDone! Successfully created custom dataset in COCO format.')
-    print('Dataset is stored at', coco)
+    print('Dataset is stored at', coco + '\n')

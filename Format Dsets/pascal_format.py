@@ -8,7 +8,7 @@ Created on Fri Jan 17 22:24:55 2020
 Script to format a dataset in PASCAL VOC format.
 """
 
-import os, glob, cv2, argparse, random, re
+import os, glob, cv2, argparse, random, re, shutil
 import xml.etree.ElementTree as ET 
 from tqdm import tqdm
 from pascal_voc_writer import Writer
@@ -178,6 +178,7 @@ def resize_and_save(voc, fnames):  #fnames are the direct filepath
         elif args.one_side:
             resized_w, resized_h = one_side_resize(fname, save_path=new_fp, common_size=args.one_side)
         else:
+            shutil.copyfile(fname, new_fp)
             resized_w, resized_h = im_dims(fname)
         
         #for annotations:

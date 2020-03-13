@@ -148,7 +148,12 @@ def new_bbox_xml(xmlfile, og_impath, new_impath, save_loc, new_w, new_h):  #help
     
     # save(path)
     writer.save(save_loc)
-    
+
+# helper function to get image dimensions of image
+def im_dims(fpath):
+    im = cv2.imread(fpath)
+    h, w = im.shape[:2]
+    return w, h  #return the width and height
     
 ##################################################################MAIN FUNCTIONS
 def create_dirs(voc):
@@ -172,6 +177,8 @@ def resize_and_save(voc, fnames):  #fnames are the direct filepath
             resized_w, resized_h = args.target_size
         elif args.one_side:
             resized_w, resized_h = one_side_resize(fname, save_path=new_fp, common_size=args.one_side)
+        else:
+            resized_w, resized_h = im_dims(fname)
         
         #for annotations:
         base = os.path.basename(fname)    #get the image name by itself, no path

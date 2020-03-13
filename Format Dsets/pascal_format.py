@@ -59,66 +59,15 @@ if args.target_size:
     args.target_size = eval(args.target_size)
     msg = "--target-size must be a tuple of 2 integers"
     assert isinstance(args.target_size, tuple) and len(args.target_size) == 2, msg  #see if the inputs are valid
-         
+       
+###################################################HELPER FUNCTIONS
+    
 # helper function to sort files by number
 def numericalSort(value):
     numbers = re.compile(r'(\d+)')
     parts = numbers.split(value)
     parts[1::2] = map(int, parts[1::2])
     return parts
-
-#MAIN FUNCTIONS
-def create_dirs(voc):
-    #pascal voc dataset path    
-    sub_dirs = ['Annotations','ImageSets/Main','JPEGImages']  #sub_directories for voc
-    
-    print('\nCreating Pascal directories...\n')
-    for sub_dir in sub_dirs:
-        path = os.path.join(voc, sub_dir)
-        os.makedirs(path)      #create the directories
-    
-def resize_and_save(voc, fnames):  #fnames are the direct filepath
-    print("Copying over images and corresponding annotations...")
-    new_img_path = os.path.join(voc, 'JPEGImages')
-    for fname in tqdm(fnames):
-        new_fp = os.path.join(new_img_path, os.path.basename(fname))  #New file location
-        if args.target_size:
-            img = cv2.imread(fname)                 #for every file, resize it and copy it    
-            img_small = cv2.resize(img, args.target_size)
-            cv2.imwrite(new_fp, img_small)
-            resized_w, resized_h = args.target_size
-        elif args.one_side:
-            resized_w, resized_h = one_side_resize(fname, save_path=new_fp, common_size=args.one_side)
-        
-        #for annotations:
-        base = os.path.basename(fname)    #get the image name by itself, no path
-        base_f = os.path.splitext(base)[0]  #gets the base filename (eg. 'yeet' from 'yeet.png')
-        annot = base_f + '.xml'  #gets the corresponding xml
-        save_loc = os.path.join(voc, 'Annotations/{}.xml'.format(base_f))  #sets save locations
-        annot_loc = os.path.join(args.annot_dir, annot)   #fetches annotation location
-        new_bbox_xml(annot_loc, fname, new_fp, save_loc, new_w=resized_w, new_h=resized_h)    #makes the new xml file
-    
-def write_train_test(voc, fnames):
-    fnames = [os.path.splitext(os.path.basename(f))[0] for f in fnames]  #gets just the base (eg. '1' from '1.png') for each file
-    num_imgs = len(fnames)  #number of images in image directory
-    ix = int(args.train_test_split * num_imgs)  #training pics index
-    
-    # split trainval and test
-    trainval = sorted(fnames[:ix], key=numericalSort)
-    test = sorted(fnames[ix:], key=numericalSort)
-    
-    print('\nWriting trainval filenames...')
-    with open(os.path.join(voc, 'ImageSets/Main/trainval.txt'), 'a+') as f:
-        for im in tqdm(trainval):
-            f.write(im + '\n')   #writes the trainval files
-    
-    print('\nWriting test filenames...')
-    with open(os.path.join(voc, 'ImageSets/Main/test.txt'), 'a+') as f:
-        for im in tqdm(test):
-            f.write(im + '\n')    #writes the test files split, creates new line for next line
-    
-    print('\nSuccessfully formatted to Pascal VOC format!')
-    print('Dataset saved at:', os.path.join(voc) + '\n')
     
 # helper function to resize using one_side_resize 
 # (ex. resize 5000x2500 image to (512,256), does not distort shapes)
@@ -199,6 +148,61 @@ def new_bbox_xml(xmlfile, og_impath, new_impath, save_loc, new_w, new_h):  #help
     
     # save(path)
     writer.save(save_loc)
+    
+    
+##################################################################MAIN FUNCTIONS
+def create_dirs(voc):
+    #pascal voc dataset path    
+    sub_dirs = ['Annotations','ImageSets/Main','JPEGImages']  #sub_directories for voc
+    
+    print('\nCreating Pascal directories...\n')
+    for sub_dir in sub_dirs:
+        path = os.path.join(voc, sub_dir)
+        os.makedirs(path)      #create the directories
+    
+def resize_and_save(voc, fnames):  #fnames are the direct filepath
+    print("Copying over images and corresponding annotations...")
+    new_img_path = os.path.join(voc, 'JPEGImages')
+    for fname in tqdm(fnames):
+        new_fp = os.path.join(new_img_path, os.path.basename(fname))  #New file location
+        if args.target_size:
+            img = cv2.imread(fname)                 #for every file, resize it and copy it    
+            img_small = cv2.resize(img, args.target_size)
+            cv2.imwrite(new_fp, img_small)
+            resized_w, resized_h = args.target_size
+        elif args.one_side:
+            resized_w, resized_h = one_side_resize(fname, save_path=new_fp, common_size=args.one_side)
+        
+        #for annotations:
+        base = os.path.basename(fname)    #get the image name by itself, no path
+        base_f = os.path.splitext(base)[0]  #gets the base filename (eg. 'yeet' from 'yeet.png')
+        annot = base_f + '.xml'  #gets the corresponding xml
+        save_loc = os.path.join(voc, 'Annotations/{}.xml'.format(base_f))  #sets save locations
+        annot_loc = os.path.join(args.annot_dir, annot)   #fetches annotation location
+        new_bbox_xml(annot_loc, fname, new_fp, save_loc, new_w=resized_w, new_h=resized_h)    #makes the new xml file
+    
+def write_train_test(voc, fnames):
+    fnames = [os.path.splitext(os.path.basename(f))[0] for f in fnames]  #gets just the base (eg. '1' from '1.png') for each file
+    num_imgs = len(fnames)  #number of images in image directory
+    ix = int(args.train_test_split * num_imgs)  #training pics index
+    
+    # split trainval and test
+    trainval = sorted(fnames[:ix], key=numericalSort)
+    test = sorted(fnames[ix:], key=numericalSort)
+    
+    print('\nWriting trainval filenames...')
+    with open(os.path.join(voc, 'ImageSets/Main/trainval.txt'), 'a+') as f:
+        for im in tqdm(trainval):
+            f.write(im + '\n')   #writes the trainval files
+    
+    print('\nWriting test filenames...')
+    with open(os.path.join(voc, 'ImageSets/Main/test.txt'), 'a+') as f:
+        for im in tqdm(test):
+            f.write(im + '\n')    #writes the test files split, creates new line for next line
+    
+    print('\nSuccessfully formatted to Pascal VOC format!')
+    print('Dataset saved at:', os.path.join(voc) + '\n')
+
 
 if __name__ == "__main__":
     voc_path = os.path.join(args.save_dir, 'data/VOCdevkit/VOC2007/')  #path of voc format

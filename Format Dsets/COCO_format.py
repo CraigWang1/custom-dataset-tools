@@ -148,8 +148,8 @@ def convert(xml_files, new_dims, json_file, categories):
                 categories[category] = new_id
             category_id = categories[category]
             bndbox = get_and_check(obj, "bndbox", 1)
-            xmin = int(get_and_check(bndbox, "xmin", 1).text) - 1
-            ymin = int(get_and_check(bndbox, "ymin", 1).text) - 1
+            xmin = int(get_and_check(bndbox, "xmin", 1).text) 
+            ymin = int(get_and_check(bndbox, "ymin", 1).text) 
             xmax = int(get_and_check(bndbox, "xmax", 1).text)
             ymax = int(get_and_check(bndbox, "ymax", 1).text)
             # resize the bboxes

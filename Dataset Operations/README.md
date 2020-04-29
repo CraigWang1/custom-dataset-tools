@@ -117,6 +117,23 @@ data
 ```
 # renumber_dir.py
 renumber_dir.py is a script to renumber a folder of images and/or xml annotations in ascending integer order starting from a specified start number.
+```
+usage: renumber_dir.py [-h] [--image_dir IMAGE_DIR] [--annot_dir ANNOT_DIR]
+                       [--ext EXT] [--start START]
+
+Rename images in directories to integers.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --image_dir IMAGE_DIR
+                        Directory path to dataset images.
+  --annot_dir ANNOT_DIR
+                        Directory to image annotations.
+  --ext EXT             Image files extension.
+  --start START         The starting number of renumbered images (eg. start on
+                        5.png, 6.png, etc.)
+```
+
 
 
 

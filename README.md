@@ -16,7 +16,7 @@ Open terminal.
 Copy and paste (ctrl-shift-v for linux) the following commands:
 
 ```
-$ git clone https://github.com/CraigWang1/object_detection_tools.git
+$ git clone https://github.com/CraigWang1/Convenient-ML-custom-dataset-tools.git
 $ cd object_detection_tools
 $ pip install -r requirements.txt
 ```

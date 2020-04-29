@@ -6,7 +6,7 @@ In this repository you will find
 - a simple script to help visualize the predictions of object detection models
 - a script to renumber all images and labelImg (Pascal VOC) annotations to sequential integer order (eg. 0.png, 0.xml, 1.png, 1.xml, etc.)
 
-### **INSTALL**
+# **INSTALL**
 Open terminal.
 `git clone https://github.com/CraigWang1/object_detection_tools.git`
 

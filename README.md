@@ -4,7 +4,7 @@ In this repository you will find
 - COCO format script
 - Pascal VOC format script
 - convert Pascal (labelImg) annotations to COCO json script
-- renumber all images and labelImg (Pascal VOC) annotations to sequential integer order (eg. 0.png, 0.xml, 1.png, 1.xml, etc.) script
+- renumber directory of images and labelImg (Pascal VOC) annotations to sequential integer order (eg. 0.png, 0.xml, 1.png, 1.xml, etc.) script
 
 # **INSTALL**
 First, make sure you have [Python 3 installed](https://www.python.org/downloads/) (only for Windows; Mac and Linux already have it preinstalled).

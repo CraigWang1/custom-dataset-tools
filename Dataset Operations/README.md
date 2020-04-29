@@ -184,5 +184,19 @@ optional arguments:
   --annots_only         Option to resize only annotations
 ```
 # xml_to_json.py
+Credit: https://github.com/Tony607/voc2coco 
+
+This is a script to convert a directory of pascal (labelImg) xml annotations to a COCO json format.
+
+```
+Convert Pascal VOC annotation to COCO format.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --xml_dir XML_DIR     Directory path to xml files.
+  --json_file JSON_FILE
+                        Output COCO format json file.
+```
+
 
 

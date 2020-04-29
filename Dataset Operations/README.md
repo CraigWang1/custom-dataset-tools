@@ -36,13 +36,29 @@ $ python3 COCO_format.py \
   --image_dir /home/joe/img_dset \
   --annot_dir /home/joe/img_dset \
   --save_dir /home/joe/dset_COCO \
-  --ext png \
+  --ext JPG \
   --one_side 512 \
   --train_test_split 0.9
 ```
+Output directories:
+```
+data
+└── COCO
+    ├── annotations
+    │   ├── instances_train2017.json
+    │   └── instances_val2017.json
+    └── images
+        ├── train2017
+        │   ├── 0.JPG
+        │   ├── 1.JPG
+        │   └── 3.JPG
+        └── val2017
+            └── 2.JPG
+
+```
 
 ## pascal_format.py
-The pascal script is similar to the COCO script, except it formats a copy of a labelImg annotated dataset (which uses pascal xml format) into Pascal VOC format.
+The pascal script is similar to the COCO script, except it formats a copy of a labelImg annotated dataset (which uses pascal xml format) into Pascal VOC 2007 format.
 
 
 

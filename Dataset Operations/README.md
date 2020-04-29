@@ -155,6 +155,33 @@ dset
 ├── 3.JPG
 └── 3.xml
 ```
+# resize.py
+This is a script that takes an input of a directory (or two split directories, one with images, one with annotations) and writes a copy of the data except resized, using the aforementioned `target_size` or `one_side`.
 
+Note: You can choose to resize a folder of images, images and annotations, or just annotations.
+If you are resizing only annotations
+usage: resize.py [-h] [--image_dir IMAGE_DIR] [--annot_dir ANNOT_DIR]
+                 [--save_dir SAVE_DIR] [--ext EXT] [--target_size TARGET_SIZE]
+                 [--one_side ONE_SIDE] [--annots_only]
+
+Resize directory of images and/or annotations.
+
+If resizing only annotations, specify `--annots-only`.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --image_dir IMAGE_DIR
+                        Directory path to dataset images.
+  --annot_dir ANNOT_DIR
+                        Directory to image annotations; optional
+  --save_dir SAVE_DIR   Directory path to save resized images and/or
+                        annotations. (eg: /home/user)
+  --ext EXT             Image files extension to resize.
+  --target_size TARGET_SIZE
+                        Target size to resize as a tuple of 2 integers.
+  --one_side ONE_SIDE   Side (int value) to resize image (eg. 512, 1024x556 =>
+                        512x278).
+  --annots_only         Option to resize only annotations
+# xml_to_json.py
 
 

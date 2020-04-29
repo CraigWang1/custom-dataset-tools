@@ -59,6 +59,31 @@ data
 
 ## pascal_format.py
 The pascal script is similar to the COCO script, except it formats a copy of a labelImg annotated dataset (which uses pascal xml format) into Pascal VOC 2007 format.
+```
+usage: pascal_format.py [-h] [--image_dir IMAGE_DIR] [--annot_dir ANNOT_DIR]
+                        [--save_dir SAVE_DIR] [--ext EXT]
+                        [--target_size TARGET_SIZE] [--one_side ONE_SIDE]
+                        [--train_test_split TRAIN_TEST_SPLIT]
+
+Format images dataset in PASCAL VOC format.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --image_dir IMAGE_DIR
+                        Directory path to dataset images.
+  --annot_dir ANNOT_DIR
+                        Directory to image annotations; optional
+  --save_dir SAVE_DIR   Directory path to save entire Pascal VOC formatted
+                        dataset. (eg: /home/user)
+  --ext EXT             Image files extension to resize.
+  --target_size TARGET_SIZE
+                        Target size to resize as a tuple of 2 integers.
+  --one_side ONE_SIDE   Side (int value) to resize image (eg. 512, 1024x556 =>
+                        512x278).
+  --train_test_split TRAIN_TEST_SPLIT
+                        Portion of images used for training expressed as a
+                        decimal (eg. 0.8)
+```
 
 
 

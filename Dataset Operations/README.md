@@ -1,7 +1,7 @@
 # Change Into Directory
 First, change into this directory to use the scripts:
 ```
-$ cd "../../path_to/object_detection_tools/Dataset Operations"
+$ cd "../../path_to/Convenient-ML-custom-dataset-tools/Dataset Operations"
 ```
 # COCO_format.py
 This is a script to take a directory with images and corresponding xml labels in pascal [labelImg](https://github.com/tzutalin/labelImg) format and format a copy into COCO format. This is useful for taking custom datasets and training machine learning models on them. The script can also resize the images.

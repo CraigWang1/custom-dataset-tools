@@ -133,7 +133,28 @@ optional arguments:
   --start START         The starting number of renumbered images (eg. start on
                         5.png, 6.png, etc.)
 ```
+Note: it will not let you renumber a dir of 20 images that start at 0.jpg, 1.jpg, 2.jpg, etc. starting from 3 for example because the new renumbered images would delete the old ones after renaming itself. To avoid this, you can choose a huge start number that would not accidentally delete anything (eg. 100 in this case) and after that choose 3, which would raise no issues.
 
+Example usage:
+```
+$ python renumber_dir.py \
+  --image_dir /home/joe/dset \
+  --annot_dir /home/joe/dset \
+  --ext JPG \
+  --start 0
+```
+Updated folder:
+```
+dset
+├── 0.JPG
+├── 0.xml
+├── 1.JPG
+├── 1.xml
+├── 2.JPG
+├── 2.xml
+├── 3.JPG
+└── 3.xml
+```
 
 
 

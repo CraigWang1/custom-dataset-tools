@@ -8,6 +8,7 @@ In this repository you will find
 
 # **INSTALL**
 Open terminal.
+
 Copy and paste (ctrl-shift-v for linux) the following command:
 
 `git clone https://github.com/CraigWang1/object_detection_tools.git`

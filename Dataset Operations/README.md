@@ -80,7 +80,38 @@ optional arguments:
                         512x278).
   --train_test_split TRAIN_TEST_SPLIT
                         Portion of images used for training expressed as a
-                        decimal (eg. 0.8)
+                        decimal (eg. 0.8)            
+```
+Example usage:
+```
+$ python3 pascal_format.py \
+  --image_dir /home/joe/img_dset \
+  --annot_dir /home/joe/img_dset \
+  --save_dir /home/joe \
+  --ext JPG \
+  --target_size "(512,420)" \
+  --train_test_split 0.9
+```
+Output directories:
+```
+data
+└── VOCdevkit
+    └── VOC2007
+        ├── Annotations
+        │   ├── 0.xml
+        │   ├── 1.xml
+        │   ├── 2.xml
+        │   └── 3.xml
+        ├── ImageSets
+        │   └── Main
+        │       ├── test.txt
+        │       └── trainval.txt
+        └── JPEGImages
+            ├── 0.JPG
+            ├── 1.JPG
+            ├── 2.JPG
+            └── 3.JPG
+
 ```
 
 

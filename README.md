@@ -7,6 +7,8 @@ In this repository you will find
 - a script to renumber all images and labelImg (Pascal VOC) annotations to sequential integer order (eg. 0.png, 0.xml, 1.png, 1.xml, etc.)
 
 # **INSTALL**
+First, make sure you have [Python installed] (https://www.python.org/downloads/).
+
 Open terminal.
 
 Copy and paste (ctrl-shift-v for linux) the following command:

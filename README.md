@@ -12,7 +12,7 @@ First, make sure you have [Python 3 installed](https://www.python.org/downloads/
 ## Get Code
 Open terminal.
 
-Copy and paste (ctrl-shift-v for linux) the following command:
+Copy and paste (ctrl-shift-v for linux) the following commands:
 
 ```
 $ git clone https://github.com/CraigWang1/object_detection_tools.git
@@ -20,7 +20,6 @@ $ cd object_detection_tools
 $ pip install -r requirements.txt
 ```
 
-## Install Requirements
 
 
 

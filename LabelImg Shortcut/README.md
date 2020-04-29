@@ -3,6 +3,7 @@ labelimg_help.py is a Python script that makes a shortcut while labelling images
 
 Usage:
 ```
+$ cd "../../path_to_/object_detection_tools/LabelImg Shortcut"
 $ python labelImg.py
 ```
 

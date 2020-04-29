@@ -63,7 +63,7 @@ data
 ```
 
 # pascal_format.py
-The pascal script is similar to the COCO script, except it formats a copy of a labelImg annotated dataset (which uses pascal xml format) into Pascal VOC 2007 format.
+The pascal script is similar to the COCO script, except it formats a copy of a [labelImg](https://github.com/tzutalin/labelImg) annotated dataset (which uses pascal xml format) into Pascal VOC 2007 format.
 ```
 usage: pascal_format.py [-h] [--image_dir IMAGE_DIR] [--annot_dir ANNOT_DIR]
                         [--save_dir SAVE_DIR] [--ext EXT]
@@ -224,7 +224,7 @@ resized_dset
 # xml_to_json.py
 Credit: https://github.com/Tony607/voc2coco 
 
-This is a script to convert a directory of pascal (labelImg) xml annotations to a COCO json format.
+This is a script to convert a directory of pascal [labelImg](https://github.com/tzutalin/labelImg) xml annotations to a COCO json format.
 
 ```
 Convert Pascal VOC annotation to COCO format.

@@ -41,5 +41,8 @@ $ python3 COCO_format.py \
   --train_test_split 0.9
 ```
 
+## pascal_format.py
+The pascal script is similar to the COCO script, except it formats a copy of a labelImg annotated dataset (which uses pascal xml format) into Pascal VOC format.
+
 
 

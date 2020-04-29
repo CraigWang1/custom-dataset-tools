@@ -9,7 +9,6 @@ Script to convert pascal voc xml annotations to coco json format.
 
 #!/usr/bin/python
 
-# pip install lxml
 
 import sys
 import os

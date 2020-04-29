@@ -11,9 +11,6 @@ Open terminal.
 
 `git clone https://github.com/CraigWang1/object_detection_tools.git`
 
-
-
-
-
+\n\n\n
 I hope these tools help; feel free to let me know should any issues/questions arise.
 Original xml_to_json script: https://github.com/Tony607/voc2coco

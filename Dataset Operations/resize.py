@@ -122,8 +122,8 @@ def new_xml(xml_file, new_f, save_dir, args):
     for obj in get(root, "object"):                    #for each object
         label = get_and_check(obj, "name", 1).text    #get the label
         bndbox = get_and_check(obj, "bndbox", 1)
-        xmin = int(get_and_check(bndbox, "xmin", 1).text) - 1
-        ymin = int(get_and_check(bndbox, "ymin", 1).text) - 1   #get the original xmin, ymin, xmax, ymax
+        xmin = int(get_and_check(bndbox, "xmin", 1).text) 
+        ymin = int(get_and_check(bndbox, "ymin", 1).text)    #get the original xmin, ymin, xmax, ymax
         xmax = int(get_and_check(bndbox, "xmax", 1).text)
         ymax = int(get_and_check(bndbox, "ymax", 1).text)   
         # resize the bboxes

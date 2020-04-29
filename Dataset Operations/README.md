@@ -183,6 +183,27 @@ optional arguments:
                         512x278).
   --annots_only         Option to resize only annotations
 ```
+Example usage:
+```
+$ python resize.py \
+  --image_dir /home/joe/img_dset \
+  --annot_dir /home/joe/img_set \
+  --save_dir /home/joe/resized_dset \
+  --ext JPG \
+  --one_side 512
+```
+New folder:
+```
+resized_dset
+├── 0.JPG
+├── 0.xml
+├── 1.JPG
+├── 1.xml
+├── 2.JPG
+├── 2.xml
+├── 3.JPG
+└── 3.xml
+```
 # xml_to_json.py
 Credit: https://github.com/Tony607/voc2coco 
 
@@ -197,6 +218,16 @@ optional arguments:
   --json_file JSON_FILE
                         Output COCO format json file.
 ```
-
+Example usage:
+```
+$ python xml_to_json.py \
+  --xml_dir /home/joe/annots \
+  --json_file /home/joe/coco_annotation.json
+```
+New file:
+```
+/home/joe
+├── coco_annotations.json
+```
 
 

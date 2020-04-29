@@ -2,7 +2,9 @@
 labelimg_help.py is a Python script that makes a shortcut while labelling images using [labelImg](https://github.com/tzutalin/labelImg).
 
 Usage:
-`$ python labelImg.py`
+```
+$ python labelImg.py
+```
 
 Once activated, go to your labelImg window and draw your first rectangle. 
 

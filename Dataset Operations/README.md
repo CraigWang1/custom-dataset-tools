@@ -135,7 +135,19 @@ optional arguments:
 ```
 Note: it will not let you renumber a dir of 20 images that start at 0.jpg, 1.jpg, 2.jpg, etc. starting from 3 for example because the new renumbered images would delete the old ones after renaming itself. To avoid this, you can choose a huge start number that would not accidentally delete anything (eg. 100 in this case) and after that choose 3, which would raise no issues.
 
-Example usage:
+Before:
+```
+dset
+├── 4.JPG
+├── 4.xml
+├── 5.JPG
+├── 5.xml
+├── 6.JPG
+├── 6.xml
+├── 7.JPG
+└── 7.xml
+```
+Command:
 ```
 $ python renumber_dir.py \
   --image_dir /home/joe/dset \

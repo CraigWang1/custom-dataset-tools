@@ -1,9 +1,9 @@
 This is a repository filled with tools to help streamline machine learning dataset creation.
 In this repository you will find
+- a [labelImg](https://github.com/tzutalin/labelImg.git) shortcut script
 - COCO format script
 - Pascal VOC format script
 - convert Pascal (labelImg) annotations to COCO json script
-- a labelImg shortcut script
 - renumber all images and labelImg (Pascal VOC) annotations to sequential integer order (eg. 0.png, 0.xml, 1.png, 1.xml, etc.) script
 
 # **INSTALL**

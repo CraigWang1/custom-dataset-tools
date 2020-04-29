@@ -1,6 +1,8 @@
 # COCO_format.py
 This is a script to take a directory with images and corresponding xml labels in pascal (labelImg) format, and format a copy into COCO format. This is useful for taking custom datasets and training machine learning models on them. The script can also resize the images.
 
+Resizing is optional.
+
 ```
 usage: COCO_format.py [-h] [--image_dir IMAGE_DIR] [--annot_dir ANNOT_DIR]
                       [--save_dir SAVE_DIR] [--ext EXT]

@@ -1,6 +1,4 @@
-# Script Guide
-
-## COCO_format.py
+# COCO_format.py
 This is a script to take a directory with images and corresponding xml labels in pascal (labelImg) format, and format a copy into COCO format. This is useful for taking custom datasets and training machine learning models on them. The script can also resize the images.
 
 ```
@@ -57,7 +55,7 @@ data
 
 ```
 
-## pascal_format.py
+# pascal_format.py
 The pascal script is similar to the COCO script, except it formats a copy of a labelImg annotated dataset (which uses pascal xml format) into Pascal VOC 2007 format.
 ```
 usage: pascal_format.py [-h] [--image_dir IMAGE_DIR] [--annot_dir ANNOT_DIR]

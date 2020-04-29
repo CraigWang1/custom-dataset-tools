@@ -1,6 +1,6 @@
 This is a repository filled with tools to help streamline machine learning dataset creation.
 In this repository you will find
-- [labelImg](https://github.com/tzutalin/labelImg.git) shortcut script
+- [labelImg](https://github.com/tzutalin/labelImg.git) shortcut script (make life much easier when annotating images)
 - COCO format script
 - Pascal VOC format script
 - convert Pascal (labelImg) annotations to COCO json script

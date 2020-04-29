@@ -115,6 +115,8 @@ data
             └── 3.JPG
 
 ```
+# renumber_dir.py
+renumber_dir.py is a script to renumber a folder of images and/or xml annotations in ascending integer order starting from a specified start number.
 
 
 

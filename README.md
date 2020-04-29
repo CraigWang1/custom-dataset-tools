@@ -9,11 +9,19 @@ In this repository you will find
 # **INSTALL**
 First, make sure you have [Python 3 installed](https://www.python.org/downloads/) (only for Windows; Mac and Linux already have it preinstalled).
 
+## Get Code
 Open terminal.
 
 Copy and paste (ctrl-shift-v for linux) the following command:
 
-`git clone https://github.com/CraigWang1/object_detection_tools.git`
+```
+$ git clone https://github.com/CraigWang1/object_detection_tools.git
+$ cd object_detection_tools
+$ pip install -r requirements.txt
+```
+
+## Install Requirements
+
 
 
 I hope these tools help; feel free to let me know should any issues/questions arise.

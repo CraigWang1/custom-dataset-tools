@@ -8,7 +8,7 @@ In this repository you will find
 
 ### INSTALL
 Open terminal.
-`git clone https://github.com/CraigWang1/object_detection_tools.git'
+`git clone https://github.com/CraigWang1/object_detection_tools.git`
 
 I hope these tools help; feel free to let me know should any issues/questions arise.
 

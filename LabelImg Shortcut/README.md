@@ -9,7 +9,7 @@ $ python labelImg.py
 
 Once activated, go to your labelImg window and draw your first rectangle. 
 
-Then, press the **"e"** key to automatically save the annotationn (ctrl s), move to the next image ('d'), and select the rectangle tool to annotate another box ('w'). 
+Then, press the **"e"** key. This automatically save the annotationn (ctrl s), move to the next image ('d'), and select the rectangle tool to annotate another box ('w'). 
 
 Essentially, it makes the process go from 4 keystrokes/image to 1 keystroke/image, making it a much faster, more efficient, and more enjoyable process.
 

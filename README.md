@@ -1,10 +1,10 @@
 This is a repository filled with tools to help streamline machine learning dataset creation.
 In this repository you will find
-- scripts to format datasets into PASCAL VOC and COCO format (with resizing image and bbox annotation capabilities)
-- a script to convert Pascal (labelImg) annotations to COCO json format
-- a labelling shortcut key to help make life easier when annotating images with labelImg
-- a simple script to help visualize the predictions of object detection models
-- a script to renumber all images and labelImg (Pascal VOC) annotations to sequential integer order (eg. 0.png, 0.xml, 1.png, 1.xml, etc.)
+- COCO format script
+- Pascal VOC format script
+- convert Pascal (labelImg) annotations to COCO json script
+- a labelImg shortcut script
+- renumber all images and labelImg (Pascal VOC) annotations to sequential integer order (eg. 0.png, 0.xml, 1.png, 1.xml, etc.) script
 
 # **INSTALL**
 First, make sure you have [Python 3 installed](https://www.python.org/downloads/) (only for Windows; Mac and Linux already have it preinstalled).

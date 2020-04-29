@@ -16,7 +16,7 @@ optional arguments:
   --image_dir IMAGE_DIR
                         Directory path to dataset images.
   --annot_dir ANNOT_DIR
-                        Directory to image annotations.
+                        Directory containing xml image annotations.
   --save_dir SAVE_DIR   Directory path to save entire COCO formatted dataset.
                         (eg: /home/user)
   --ext EXT             Image files extension (ex. jpg, png, etc.).
@@ -30,7 +30,16 @@ optional arguments:
 ```
 A note to make is that the `target_size` parameter is for resizing to a specific size that is specified (eg. "(420,69)"), while `one_side` resizing is to resize one side of the image to be the specified side (eg. 420), and the other side goes with it. One_side resizing preserves the aspect ratio, and you only specify the integer side length (eg. 512).
 
-Example c
+Example usage:
+```
+$ python3 COCO_format.py \
+  --image_dir /home/joe/img_dset \
+  --annot_dir /home/joe/img_dset \
+  --save_dir /home/joe/dset_COCO \
+  --ext png \
+  --one_side 512 \
+  --train_test_split 0.9
+```
 
 
 

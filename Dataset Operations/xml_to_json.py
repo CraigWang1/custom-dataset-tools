@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jan 22 18:27:34 2020
+Credit: https://github.com/Tony607/voc2coco
+(THIS IS NOT MY SCRIPT)
 
-@author: craig
 Script to convert pascal voc xml annotations to coco json format.
 """
 

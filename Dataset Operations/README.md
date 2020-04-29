@@ -155,7 +155,7 @@ $ python renumber_dir.py \
   --ext JPG \
   --start 0
 ```
-Updated folder:
+After:
 ```
 dset
 ├── 0.JPG

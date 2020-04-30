@@ -9,7 +9,7 @@ to target size (eg. x, y) or one_side (one side is x, the other side depends
 based on the original ratio so there's no distortion).
 """
 
-import os, glob, cv2, argparse
+import os, glob, cv2, argparse, re, math
 import os.path as osp
 import xml.etree.ElementTree as ET 
 from tqdm import tqdm
@@ -26,13 +26,12 @@ def parse_args():
     )
     parser.add_argument(
         "--annot_dir",
-        help="Directory to image annotations; optional",
+        help="Directory to image annotations; optional.",
         type=str
     )
     parser.add_argument(
         "--save_dir",
-        help="Directory path to save entire COCO formatted dataset. (eg: /home/user)",
-        default="./",
+        help="Directory path to save resized images and/or annotations. (eg: /home/user).",
         type=str
     )
     parser.add_argument(
@@ -49,22 +48,30 @@ def parse_args():
         type=int
     )
     parser.add_argument(
-        "--annots_only",
-        help="Option to resize only annotations",
-        action='store_true'
+        "--sub_dirs",
+        help="Divide the images/annotations into sub_dirs inside of the save_dir.",
+        type=int
     )
+    
 
     args = parser.parse_args()
 
     # make sure both target_size and one_side are not both selected, but one has to be selected
-    assert args.target_size is not None or args.one_side is not None, "Please choose either target_ size resizing or one_side resizing. If you only want to resize annotations, please specify --annots_only."
-    if args.target_size is not None and args.one_side is not None:
+    assert args.image_dir or args.annot_dir, "Please provide images or annotations to resize."    #make sure there's images or annots
+    assert args.target_size or args.one_side, "Please choose either target_ size resizing or one_side resizing."
+    if args.target_size and args.one_side:
         raise ValueError("Both target_size and one_side resizing cannot be chosen at the same time.")
     #parse target size input from string to python tuple
     if args.target_size:
         args.target_size = eval(args.target_size)
         msg = "--target_size must be a tuple of 2 integers"
         assert isinstance(args.target_size, tuple) and len(args.target_size) == 2, msg  
+    if not args.image_dir and args.annot_dir:
+        print("\nMode: Resizing only annotations.")
+    elif args.image_dir and not args.annot_dir:
+        print("\nMode: Resizing only images.")
+    else:
+        print("\nMode: Resizing images and annotations.")
     
     return args
     
@@ -112,12 +119,10 @@ def new_xml(xml_file, new_f, save_dir, args):
     size = get_and_check(root, "size", 1)
     width = int(get_and_check(size, "width", 1).text)   # get original width, height
     height = int(get_and_check(size, "height", 1).text)
-    if args.annots_only and args.one_side:
+    if args.one_side:
         new_width, new_height = new_dims(width, height, common_size=args.one_side)
-    elif args.annots_only and args.target_size:
+    elif args.target_size:
         new_width, new_height = args.target_size
-    else:
-        new_width, new_height = im_dims(new_f)   #getting the new dims from image is always more reliable, so get it when you can
     writer = Writer(new_f, new_width, new_height)  #initialize new annotation writer
     for obj in get(root, "object"):                    #for each object
         label = get_and_check(obj, "name", 1).text    #get the label
@@ -154,13 +159,16 @@ def correct_coords(xmin, ymin, xmax, ymax, og_w, og_h, new_w, new_h):
 ############################################## END ANNOTATIONS STUFF
 
 # creates the save dir if it doesn't exist already
-def create_dirs(save_dir):
+def create_dirs(save_dir, sub_dirs):
     if not os.path.isdir(save_dir):
         os.makedirs(save_dir)
+    if sub_dirs:
+        for i in range(sub_dirs):           #makes the sub directories if user specified
+            os.mkdir(osp.join(save_dir, "dir_{}".format(i)))
 
 # main function
 def copy(args):
-    if args.annots_only:
+    if args.annot_dir and not args.image_dir:             # if there are only annotations to resize
         fnames = glob.glob(os.path.join(args.annot_dir, "*.xml"))   #gets all xml names in annot_dir
         msg = 'There are no annotations in the annotation directory.'
     else:
@@ -168,20 +176,22 @@ def copy(args):
         msg = 'There are no images in the image directory.'
     assert len(fnames) > 0, msg
     helper_copy(fnames, args)  #resizes and saves the images
+    if args.sub_dirs:
+        split(args)      #if creating sub_dirs is specified, then split the resized images/xmls into sub dirs inside save dir
     
 # helper function to copy and resize images
-def helper_copy(imgs, args):
-    if args.annot_dir and args.annots_only:
+def helper_copy(fnames, args):
+    if args.annot_dir and not args.image_dir:
         print('\nResizing annotations only...')
-    elif args.annot_dir:
+    elif args.annot_dir and args.image_dir:
         print('\nResizing images and corresponding annotations...')
-    elif not args.annot_dir:
+    else:
         print('\nResizing images...')
-    for f in tqdm(imgs):
+    for f in tqdm(fnames):
         base_fname = osp.splitext(osp.basename(f))[0]  #takes the base filename without the extension
         new_fname = "{}.{}".format(base_fname, args.ext)   #puts our new extension on
         new_fpath = osp.join(args.save_dir, new_fname)   #makes the save fpath
-        if not args.annots_only: 
+        if args.image_dir: 
             #resize images
             if args.target_size:       #if target_size
                 target_resize(f, new_fpath, args.target_size)
@@ -191,7 +201,36 @@ def helper_copy(imgs, args):
             xml_file = base_fname + '.xml'
             xml_file = os.path.join(args.annot_dir, xml_file) #get corresponding xml file
             new_xml(xml_file, new_fpath, args.save_dir, args)   #makes new, resized xml
-            
+
+# helper function to split the save_dir into sub_dirs inside of it
+# if user specified
+def split(args):
+    print("\nSplitting files among sub directories...")
+    # set up glob file pattern
+    if args.annot_dir and not args.image_dir: # if only annots just take the xmls
+        glob_ext = "*.xml"
+    else:                                    # otherwise take the images
+        glob_ext = "*.{}".format(args.ext)
+    fnames = sorted(glob.glob(osp.join(args.save_dir, glob_ext)), key=numericalSort)  # get all the files and sort them numerical order
+    # find out how many files should be in each sub directory
+    n = math.ceil(len(fnames) / args.sub_dirs)  #math.ceil = round up
+    chunks = divide_chunks(fnames, n)
+    # iterate over each chunk
+    for i, chunk in enumerate(tqdm(chunks)):    #i = sub_dir, chunk = the split of files going into that sub dir
+        sub_dir = osp.join(args.save_dir, "dir_{}".format(i))   #set up appropriate sub dir path
+        for f in chunk:
+            base_fname = osp.splitext(osp.basename(f))[0]   #base fname eg: /home/joe/cat.png -> cat
+            if args.image_dir:
+                fname = '{}.{}'.format(base_fname, args.ext)   #if images are resized, then move images to sub dir
+                old = osp.join(args.save_dir, fname)   #old filepath
+                new = osp.join(sub_dir, fname)
+                os.rename(old, new)
+            if args.annot_dir:
+                fname = '{}.xml'.format(base_fname)            #if annotations are resized, then move xmls to sub dir
+                old = osp.join(args.save_dir, fname)   #old filepath
+                new = osp.join(sub_dir, fname)
+                os.rename(old, new)
+                      
 # helper function to resize using target_resize 
 # (ex. resize 5000x2500 image to (69,420) can distort shapes)
 def target_resize(f, save_path, target_size):
@@ -222,14 +261,27 @@ def new_dims(og_w, og_h, common_size):
         resized_width = common_size
     return resized_width, resized_height
 
-#get image dimensions
-def im_dims(f):
-    im = cv2.imread(f)
-    height, width, _ = im.shape
-    return width, height
+def divide_chunks(l, n):
+    """
+    Helper function to divide list l into sub-lists/chunks of length n each
     
+    Input: list to divide, n=how many elements you want in each chunk
+    Output: big list which contains all of the sub-lists/chunks inside
+    """
+    big_l = []
+    for i in range(0, len(l), n):
+        big_l.append(l[i:i + n])
+    return big_l
+
+# helper function to sort files by number
+def numericalSort(value):
+    numbers = re.compile(r'(\d+)')
+    parts = numbers.split(value)
+    parts[1::2] = map(int, parts[1::2])
+    return parts
+
 if __name__ == '__main__':
     args = parse_args()
-    create_dirs(args.save_dir)
+    create_dirs(args.save_dir, args.sub_dirs)
     copy(args)
     print('') #print empty line to look aesthetic

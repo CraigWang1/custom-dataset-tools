@@ -198,7 +198,7 @@ optional arguments:
   --one_side ONE_SIDE   Side (int value) to resize image (eg. 512, 1024x556 =>
                         512x278).
   --sub_dirs SUB_DIRS   Divide the images/annotations into sub_dirs inside of
-                        the save_dir.
+                        the save_dir (OPTIONAL).
 ```
 Example usage:
 ```

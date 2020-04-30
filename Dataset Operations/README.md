@@ -35,7 +35,7 @@ optional arguments:
 ```
 A note to make is that the `target_size` parameter is for resizing to a specific size that is specified (eg. "(420,69)"), while `one_side` resizing is to resize one side of the image to be the specified side (eg. 420), and the other side goes with it. One_side resizing preserves the aspect ratio, and you only specify the integer side length (eg. 512).
 
-Example usage:
+#### Example usage:
 ```
 $ python3 COCO_format.py \
   --image_dir /home/joe/img_dset \
@@ -89,7 +89,7 @@ optional arguments:
                         Portion of images used for training expressed as a
                         decimal (eg. 0.8)            
 ```
-Example usage:
+#### Example usage:
 ```
 $ python3 pascal_format.py \
   --image_dir /home/joe/img_dset \
@@ -139,6 +139,8 @@ optional arguments:
                         5.png, 6.png, etc.)
 ```
 Note: it will not let you renumber a dir of 20 images that start at 0.jpg, 1.jpg, 2.jpg, etc. starting from 3 for example because the new renumbered images would delete the old ones after renaming itself. To avoid this, you can choose a huge start number that would not accidentally delete anything (eg. 100 in this case) and after that choose 3, which would raise no issues.
+
+#### Example
 
 Before:
 ```
@@ -200,7 +202,7 @@ optional arguments:
   --sub_dirs SUB_DIRS   Divide the images/annotations into sub_dirs inside of
                         the save_dir (OPTIONAL).
 ```
-Example usage:
+#### Example usage:
 ```
 $ python resize.py \
   --image_dir /home/joe/img_dset \
@@ -246,7 +248,7 @@ optional arguments:
   --one_side ONE_SIDE   Side (int value) to resize image (eg. 512, 1024x556 =>
                         512x278).
 ```
-### Example:
+#### Example:
 Directory with sub directories:
 ```
 before_dir
@@ -301,7 +303,7 @@ optional arguments:
   --json_file JSON_FILE
                         Output COCO format json file.
 ```
-Example usage:
+#### Example usage:
 ```
 $ python xml_to_json.py \
   --xml_dir /home/joe/annots \

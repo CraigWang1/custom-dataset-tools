@@ -13,9 +13,7 @@ In this repository you will find scripts to:
 First, make sure you have [Python 3 installed](https://www.python.org/downloads/) (only for Windows; Mac and Linux already have it preinstalled).
 
 ## Get Code
-Open terminal.
-
-Copy and paste (ctrl-shift-v for linux) the following commands:
+Open terminal and copy-paste (ctrl-shift-v for linux) the following commands:
 
 ```
 $ git clone https://github.com/CraigWang1/Convenient-ML-custom-dataset-tools.git

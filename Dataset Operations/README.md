@@ -136,7 +136,7 @@ optional arguments:
                         Directory to image annotations.
   --ext EXT             Image files extension.
   --start START         The starting number of renumbered images (eg. start on
-                        5.png, 6.png, etc.)
+                        5, 6, etc.)
 ```
 Note: it will not let you renumber a dir of 20 images that start at 0.jpg, 1.jpg, 2.jpg, etc. starting from 3 for example because the new renumbered images would delete the old ones after renaming itself. To avoid this, you can choose a huge start number that would not accidentally delete anything (eg. 100 in this case) and after that choose 3, which would raise no issues.
 

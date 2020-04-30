@@ -1,7 +1,7 @@
 # labelimg_help.py
 labelimg_help.py is a Python script that makes a shortcut while labelling images using [labelImg](https://github.com/tzutalin/labelImg).
 
-Usage:
+#### Usage:
 ```
 $ cd "../../path_to_/Convenient-ML-custom-dataset-tools/LabelImg Shortcut"
 $ python labelImg.py

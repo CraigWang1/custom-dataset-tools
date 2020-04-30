@@ -1,11 +1,13 @@
 This is a repository filled with tools to help streamline machine learning dataset creation.
 
-In this repository you will find:
-- [labelImg](https://github.com/tzutalin/labelImg.git) annotating fast shortcut script
-- Format custom dataset to COCO script
-- Format custom dataset to Pascal VOC script
-- Convert Pascal (labelImg) annotations to COCO json script
-- Renumber directory of images and labelImg (Pascal VOC) annotations to sequential integer order (eg. 0.png, 0.xml, 1.png, 1.xml, etc.) script
+In this repository you will find scripts to:
+- [labelImg](https://github.com/tzutalin/labelImg.git) fast shortcut
+- Format custom dataset to COCO
+- Format custom dataset to Pascal VOC
+- Resize directory of images/annotations
+- Extract images/annotations from nested sub directories
+- Convert Pascal (labelImg) annotations to COCO json
+- Renumber directory of images and labelImg (Pascal VOC) annotations to sequential integer order (eg. 0.png, 0.xml, 1.png, 1.xml, etc.)
 
 # **INSTALL**
 First, make sure you have [Python 3 installed](https://www.python.org/downloads/) (only for Windows; Mac and Linux already have it preinstalled).

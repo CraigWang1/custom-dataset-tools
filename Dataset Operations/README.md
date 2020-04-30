@@ -31,7 +31,7 @@ optional arguments:
                         512x278).
   --train_test_split TRAIN_TEST_SPLIT
                         Portion of images used for training expressed as a
-                        decimal (eg. 0.90
+                        decimal (eg. 0.90)
 ```
 A note to make is that the `target_size` parameter is for resizing to a specific size that is specified (eg. "(420,69)"), while `one_side` resizing is to resize one side of the image to be the specified side (eg. 420), and the other side goes with it. One_side resizing preserves the aspect ratio, and you only specify the integer side length (eg. 512).
 

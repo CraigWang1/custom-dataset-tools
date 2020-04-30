@@ -221,6 +221,32 @@ resized_dset
 ├── 3.JPG
 └── 3.xml
 ```
+
+# extract_sub_dirs.py
+This is a script to extract images and/or xml annotations from sub directories within a parent directory. You can also choose resizing with `--one_side` or `target_size` resizing (optional).
+
+```
+usage: extract_sub_dirs.py [-h] [--parent_dir PARENT_DIR] [--images]
+                           [--annots] [--save_dir SAVE_DIR] [--ext EXT]
+                           [--target_size TARGET_SIZE] [--one_side ONE_SIDE]
+
+Resize directory of images and/or annotations.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --parent_dir PARENT_DIR
+                        Parent directory to extract sub directory files from.
+  --images              Whether or not to extract images.
+  --annots              Whether or not to extract xml annotations.
+  --save_dir SAVE_DIR   Directory path to save resized images and/or
+                        annotations. (eg: /home/user).
+  --ext EXT             Image files extension to resize.
+  --target_size TARGET_SIZE
+                        Target size to resize as a tuple of 2 integers.
+  --one_side ONE_SIDE   Side (int value) to resize image (eg. 512, 1024x556 =>
+                        512x278).
+```
+
 # xml_to_json.py
 Credit: https://github.com/Tony607/voc2coco 
 

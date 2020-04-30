@@ -177,11 +177,10 @@ This is a script that takes an input of a directory (or two split directories, o
 
 Note: You can choose to resize a folder of images, images and annotations, or just annotations.
 
-If resizing only annotations, specify `--annots-only`.
 ```
 usage: resize.py [-h] [--image_dir IMAGE_DIR] [--annot_dir ANNOT_DIR]
                  [--save_dir SAVE_DIR] [--ext EXT] [--target_size TARGET_SIZE]
-                 [--one_side ONE_SIDE] [--annots_only]
+                 [--one_side ONE_SIDE] [--sub_dirs SUB_DIRS]
 
 Resize directory of images and/or annotations.
 
@@ -190,15 +189,16 @@ optional arguments:
   --image_dir IMAGE_DIR
                         Directory path to dataset images.
   --annot_dir ANNOT_DIR
-                        Directory to image annotations; optional
+                        Directory to image annotations; optional.
   --save_dir SAVE_DIR   Directory path to save resized images and/or
-                        annotations. (eg: /home/user)
+                        annotations. (eg: /home/user).
   --ext EXT             Image files extension to resize.
   --target_size TARGET_SIZE
                         Target size to resize as a tuple of 2 integers.
   --one_side ONE_SIDE   Side (int value) to resize image (eg. 512, 1024x556 =>
                         512x278).
-  --annots_only         Option to resize only annotations
+  --sub_dirs SUB_DIRS   Divide the images/annotations into sub_dirs inside of
+                        the save_dir.
 ```
 Example usage:
 ```

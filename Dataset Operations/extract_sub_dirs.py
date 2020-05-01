@@ -226,7 +226,3 @@ if __name__ == '__main__':
     create_dirs(args.save_dir)
     extract(args)
     print('')  #add empty line to look aesthetic
-    
-    
-
-

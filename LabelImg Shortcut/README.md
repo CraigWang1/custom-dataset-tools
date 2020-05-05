@@ -1,5 +1,5 @@
 # labelimg_help.py
-labelimg_help.py is a Python script that makes a shortcut while labelling images using [labelImg](https://github.com/tzutalin/labelImg).
+labelimg_help.py is a Python shortcut script for labelling images using [labelImg](https://github.com/tzutalin/labelImg).
 
 #### Usage:
 ```

@@ -4,7 +4,7 @@ labelimg_help.py is a Python script that makes a shortcut while labelling images
 #### Usage:
 ```
 $ cd "../../path_to_/Convenient-ML-custom-dataset-tools/LabelImg Shortcut"
-$ python labelImg.py
+$ python labelimg_help.py
 ```
 
 Once activated, go to your labelImg window and draw your first rectangle. 

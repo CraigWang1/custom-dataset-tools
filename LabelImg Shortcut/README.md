@@ -13,8 +13,6 @@ Then, press the **"e"** key. This automatically save the annotation, move to the
 
 You can also press the `r` key to zoom in if annotating small objects.
 
-Essentially, it makes the process go from 4 keystrokes/image to 1 keystroke/image, making it a much faster, more efficient, and more enjoyable process.
-
 Once you're done, click on your terminal and press `ctrl c` to kill the script and exit.
 
 Extra tip: Use the default class so you don't have to retype it.

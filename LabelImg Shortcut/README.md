@@ -9,7 +9,11 @@ $ python labelImg.py
 
 Once activated, go to your labelImg window and draw your first rectangle. 
 
-Then, press the **"e"** key. This automatically save the annotation, move to the next image, and selects the rectangle tool to annotate another box. 
+Workflow: draw box, press `e`, repeat.
+
+You can also press the `r` key to zoom in if annotating small objects.
+
+(The 'e' key automatically saves the annotation, moves to the next image, and selects the rectangle tool to annotate another box.)
 
 You can also press the `r` key to zoom in if annotating small objects.
 

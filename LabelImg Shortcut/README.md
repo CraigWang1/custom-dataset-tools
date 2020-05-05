@@ -13,9 +13,7 @@ Workflow: draw box, press `e`, repeat.
 
 You can also press the `r` key to zoom in if annotating small objects.
 
-(The 'e' key automatically saves the annotation, moves to the next image, and selects the rectangle tool to annotate another box.)
-
-You can also press the `r` key to zoom in if annotating small objects.
+(The `e` key automatically saves the annotation, moves to the next image, and selects the rectangle tool to annotate another box.)
 
 Once you're done, click on your terminal and press `ctrl c` to kill the script and exit.
 

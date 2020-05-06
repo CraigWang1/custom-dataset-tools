@@ -203,8 +203,8 @@ def write_train_test(voc, fnames):
         for im in tqdm(trainval):
             f.write(im + '\n')   #writes the trainval files
     
-    print('\nWriting test filenames...')
-    with open(os.path.join(voc, 'ImageSets/Main/test.txt'), 'a+') as f:
+    print('\nWriting val filenames...')
+    with open(os.path.join(voc, 'ImageSets/Main/val.txt'), 'a+') as f:
         for im in tqdm(test):
             f.write(im + '\n')    #writes the test files split, creates new line for next line
     

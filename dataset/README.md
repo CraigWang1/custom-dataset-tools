@@ -1,7 +1,7 @@
 # Change Into Directory
 First, change into this directory to use the scripts:
 ```
-$ cd "../../path_to/Convenient-ML-custom-dataset-tools/Dataset Operations"
+$ cd ../../path_to/custom-dataset-tools/dataset
 ```
 # COCO_format.py
 This is a script to take a directory with images and corresponding xml labels in pascal [labelImg](https://github.com/tzutalin/labelImg) format and format a copy into COCO format. This is useful for taking custom datasets and training machine learning models on them. The script can also resize the images.
@@ -156,7 +156,7 @@ dset
 ```
 Command:
 ```
-$ python renumber_dir.py \
+$ python3 renumber_dir.py \
   --image_dir /home/joe/dset \
   --annot_dir /home/joe/dset \
   --ext JPG \
@@ -204,7 +204,7 @@ optional arguments:
 ```
 #### Example usage:
 ```
-$ python resize.py \
+$ python3 resize.py \
   --image_dir /home/joe/img_dset \
   --annot_dir /home/joe/img_set \
   --save_dir /home/joe/resized_dset \
@@ -267,7 +267,7 @@ before_dir
 ```
 Command:
 ```
-$ python extract_sub_dirs.py --parent_dir /home/joe/before_dir --images --annots --ext JPG --save_dir /home/joe/after_dir
+$ python3 extract_sub_dirs.py --parent_dir /home/joe/before_dir --images --annots --ext JPG --save_dir /home/joe/after_dir
 
 No resizing selected.
 
@@ -305,7 +305,7 @@ optional arguments:
 ```
 #### Example usage:
 ```
-$ python xml_to_json.py \
+$ python3 xml_to_json.py \
   --xml_dir /home/joe/annots \
   --json_file /home/joe/coco_annotation.json
 ```

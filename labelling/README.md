@@ -5,8 +5,8 @@ Improves to 1 keystroke/image.
 
 #### Usage:
 ```
-$ cd "../../path_to_/Convenient-ML-custom-dataset-tools/LabelImg Shortcut"
-$ python labelimg_help.py
+$ cd ../../path_to_/custom-dataset-tools/labelling
+$ python3 labelimg_help.py
 ```
 
 Once activated, go to your labelImg window and draw your first rectangle. 

@@ -1,5 +1,3 @@
-This is a repository filled with tools to help streamline machine learning dataset creation.
-
 In this repository you will find scripts to:
 - [labelImg](https://github.com/tzutalin/labelImg.git) fast shortcut
 - COCO format custom dataset

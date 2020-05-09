@@ -2,8 +2,9 @@ This is a repository filled with tools to help streamline machine learning datas
 
 In this repository you will find scripts to:
 - [labelImg](https://github.com/tzutalin/labelImg.git) fast shortcut
-- Format custom dataset to COCO
-- Format custom dataset to Pascal VOC
+- COCO format custom dataset
+- Pascal VOC format custom dataset
+- YOLO format custom dataset
 - Resize directory of images/annotations
 - Extract images/annotations from nested sub directories
 - Convert Pascal (labelImg) annotations to COCO json

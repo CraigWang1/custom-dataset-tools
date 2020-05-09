@@ -135,7 +135,7 @@ optional arguments:
                         Directory to image annotations; optional
   --save_dir SAVE_DIR   Directory path to save entire Pascal VOC formatted
                         dataset. (eg: /home/user)
-  --ext EXT             Image files extension to resize.
+  --ext EXT             Image files extension.
   --target_size TARGET_SIZE
                         Target size to resize as a tuple of 2 integers.
   --one_side ONE_SIDE   Side (int value) to resize image (eg. 512, 1024x556 =>
@@ -249,7 +249,7 @@ optional arguments:
                         Directory to image annotations; optional.
   --save_dir SAVE_DIR   Directory path to save resized images and/or
                         annotations. (eg: /home/user).
-  --ext EXT             Image files extension to resize.
+  --ext EXT             Image files extension.
   --target_size TARGET_SIZE
                         Target size to resize as a tuple of 2 integers.
   --one_side ONE_SIDE   Side (int value) to resize image (eg. 512, 1024x556 =>
@@ -297,7 +297,7 @@ optional arguments:
   --annots              Whether or not to extract xml annotations.
   --save_dir SAVE_DIR   Directory path to save (optionally) resized images and/or
                         annotations. (eg: /home/user).
-  --ext EXT             Image files extension to resize.
+  --ext EXT             Image files extension.
   --target_size TARGET_SIZE
                         Target size to resize as a tuple of 2 integers.
   --one_side ONE_SIDE   Side (int value) to resize image (eg. 512, 1024x556 =>

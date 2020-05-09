@@ -8,16 +8,14 @@ Scripts in this repo:
 - Convert Pascal (labelImg) annotations to COCO json
 - Renumber directory of images and labelImg (Pascal VOC) annotations to sequential integer order (eg. 0.png, 0.xml, 1.png, 1.xml, etc.)
 
-# **INSTALL**
+# **INSTALLATION**
 First, make sure you have [Python 3 installed](https://www.python.org/downloads/) (only for Windows; Mac and Linux already have it preinstalled).
 
-## Get Code
 Open terminal and copy-paste (ctrl-shift-v for linux) the following commands:
-
 ```
-$ git clone https://github.com/CraigWang1/Convenient-ML-custom-dataset-tools.git
-$ cd object_detection_tools
-$ pip install -r requirements.txt
+git clone https://github.com/CraigWang1/Convenient-ML-custom-dataset-tools.git
+cd object_detection_tools
+pip install -r requirements.txt
 ```
 
 

@@ -3,7 +3,7 @@ labelimg_help.py is a Python shortcut script for labelling images using [labelIm
 
 <a href="https://raw.githubusercontent.com/CraigWang1/custom-dataset-tools/master/images/labelling"><img src="https://raw.githubusercontent.com/CraigWang1/custom-dataset-tools/master/images/labelling.gif" title="Labelling shortcut demo"/></a>
 
-Improves to 1 keystroke/image.
+Instead of pressing (ctrl s) + (d) + (w), this shortcut simplifies it to just pressing (e), making labelling much more efficient and enjoyable.
 
 #### Usage:
 ```

@@ -1,5 +1,5 @@
 Scripts in this repo:
-- [labelImg](https://github.com/tzutalin/labelImg.git) fast shortcut
+- [LabelImg](https://github.com/tzutalin/labelImg.git) fast shortcut
 - COCO format custom dataset
 - Pascal VOC format custom dataset
 - YOLO format custom dataset

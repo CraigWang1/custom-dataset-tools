@@ -70,7 +70,7 @@ usage: YOLO_format.py [-h] [--image_dir IMAGE_DIR] [--annot_dir ANNOT_DIR]
                       [--target_size TARGET_SIZE] [--one_side ONE_SIDE]
                       [--train_test_split TRAIN_TEST_SPLIT]
 
-Format images dataset in PASCAL VOC format.
+Format images dataset in YOLO format.
 
 optional arguments:
   -h, --help            show this help message and exit

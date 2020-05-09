@@ -1,4 +1,4 @@
-In this repository you will find scripts to:
+Scripts in this repo:
 - [labelImg](https://github.com/tzutalin/labelImg.git) fast shortcut
 - COCO format custom dataset
 - Pascal VOC format custom dataset

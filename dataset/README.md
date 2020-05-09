@@ -61,6 +61,61 @@ data
             └── 2.JPG
 
 ```
+# YOLO_format.py
+This is a script to take a directory with images and corresponding xml labels in pascal [labelImg](https://github.com/tzutalin/labelImg) format and format a copy into YOLO format to train YOLO detectors. The script can also resize the images, though resizing is optional.
+
+```
+usage: YOLO_format.py [-h] [--image_dir IMAGE_DIR] [--annot_dir ANNOT_DIR]
+                      [--save_dir SAVE_DIR] [--ext EXT]
+                      [--target_size TARGET_SIZE] [--one_side ONE_SIDE]
+                      [--train_test_split TRAIN_TEST_SPLIT]
+
+Format images dataset in PASCAL VOC format.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --image_dir IMAGE_DIR
+                        Directory path to dataset images.
+  --annot_dir ANNOT_DIR
+                        Directory to image annotations; optional
+  --save_dir SAVE_DIR   Directory path to save entire Pascal VOC formatted
+                        dataset. (eg: /home/user)
+  --ext EXT             Image files extension.
+  --target_size TARGET_SIZE
+                        Target size to resize as a tuple of 2 integers.
+  --one_side ONE_SIDE   Side (int value) to resize image (eg. 512, 1024x556 =>
+                        512x278).
+  --train_test_split TRAIN_TEST_SPLIT
+                        Portion of images used for training expressed as a
+                        decimal (eg. 0.8)
+```
+#### Example usage:
+```
+$ python3 pascal_format.py \
+  --image_dir /home/joe/img_dset \
+  --annot_dir /home/joe/img_dset \
+  --save_dir /home/joe \
+  --ext JPG \
+  --train_test_split 0.9
+```
+Output dataset:
+```
+/home/joe/
+└── data
+    ├── obj
+    │   ├── 4.JPG
+    │   ├── 4.txt
+    │   ├── 5.JPG
+    │   ├── 5.txt
+    │   ├── 6.JPG
+    │   ├── 6.txt
+    │   ├── 7.JPG
+    │   └── 7.txt
+    ├── obj.data
+    ├── obj.names
+    ├── test.txt
+    └── train.txt
+```
 
 # pascal_format.py
 The pascal script is similar to the COCO script, except it formats a copy of a [labelImg](https://github.com/tzutalin/labelImg) annotated dataset (which uses pascal xml format) into Pascal VOC 2007 format.

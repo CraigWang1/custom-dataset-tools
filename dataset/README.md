@@ -166,7 +166,7 @@ data
         │   └── 3.xml
         ├── ImageSets
         │   └── Main
-        │       ├── test.txt
+        │       ├── val.txt
         │       └── trainval.txt
         └── JPEGImages
             ├── 0.JPG

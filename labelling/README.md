@@ -15,14 +15,8 @@ Workflow: Draw box, press 'e'.
 If annotating small images, press 'r' to zoom.
 ```
 
-Once activated, go to your labelImg window and draw your first rectangle. 
-
-Workflow: draw box, press `e`, repeat.
-
-You can also press the `r` key to zoom in if annotating small objects.
+Once activated, go to back to labelImg and start annotating! Once you're done, click on your terminal and press `ctrl c` to kill the script and exit.
 
 (The `e` key automatically saves the annotation, moves to the next image, and selects the rectangle tool to annotate another box.)
-
-Once you're done, click on your terminal and press `ctrl c` to kill the script and exit.
 
 Extra tip: Use the default class so you don't have to retype it.

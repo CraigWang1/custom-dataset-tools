@@ -14,7 +14,7 @@ First, make sure you have [Python 3 installed](https://www.python.org/downloads/
 Open terminal and copy-paste (ctrl-shift-v for linux) the following commands:
 ```
 git clone https://github.com/CraigWang1/Convenient-ML-custom-dataset-tools.git
-cd object_detection_tools
+cd custom-dataset-tools
 pip install -r requirements.txt
 ```
 

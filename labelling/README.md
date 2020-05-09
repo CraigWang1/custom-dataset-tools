@@ -9,6 +9,10 @@ Instead of pressing (ctrl s) + (d) + (w), this shortcut simplifies it to just pr
 ```
 $ cd ../../path_to_/custom-dataset-tools/labelling
 $ python3 labelimg_help.py
+
+Shortcut activated. 
+Workflow: Draw box, press 'e'. 
+If annotating small images, press 'r' to zoom.
 ```
 
 Once activated, go to your labelImg window and draw your first rectangle. 

@@ -45,7 +45,7 @@ $ python3 COCO_format.py \
   --one_side 512 \
   --train_test_split 0.9
 ```
-#### Output directories:
+Output directories:
 ```
 data
 └── COCO

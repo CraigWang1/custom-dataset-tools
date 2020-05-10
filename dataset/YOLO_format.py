@@ -15,7 +15,7 @@ import os.path as osp
 from tqdm import tqdm
 
 parser = argparse.ArgumentParser(
-    description="Format images dataset in PASCAL VOC format."
+    description="Format images dataset in YOLO format."
 )
 parser.add_argument(
     "--image_dir",
@@ -158,6 +158,8 @@ def xml_to_txt(xml_file, txt_file, categories):
 ##################################################################MAIN FUNCTIONS
 def create_dirs(save_dir):
     print("\nCreating save directories...") 
+    if not osp.exists(osp.join(args.save_dir, 'backup')):
+        os.makedirs(osp.join(args.save_dir, 'backup'))    #make backup folder if it doesnt already exist
     with tqdm(total=1) as pbar:   #make progress bar to look aesthetic on command line
         os.makedirs(os.path.join(save_dir, 'data/obj'))   #create save directory with data
         pbar.update(1)
@@ -239,7 +241,7 @@ def write_obj_data(num_classes):
     print("\nWriting obj.data file...")
     pbar = tqdm(total=1)         #make progress bar for graphical display
     with open(os.path.join(args.save_dir, 'data/obj.data'), 'a+') as f:
-        f.write('classes = {}\ntrain = {}\nvalid = {}\nnames = {}\nbackup = backup/'.format(
+        f.write('classes = {}\ntrain = {}\nvalid = {}\nnames = {}\nbackup = backup'.format(
                 num_classes, 
                 osp.join(args.save_dir, 'data/train.txt'), 
                 osp.join(args.save_dir, 'data/test.txt'),

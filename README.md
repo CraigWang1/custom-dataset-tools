@@ -1,5 +1,5 @@
 # Custom Dataset Tools
-Scripts in this repo:
+Custom Dataset Tools is a repository of convenient scripts to help label and format custom datasets to train machine learning object detectors.
 - [LabelImg](https://github.com/tzutalin/labelImg.git) fast shortcut
 - COCO format custom dataset
 - Pascal VOC format custom dataset

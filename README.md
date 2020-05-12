@@ -6,6 +6,8 @@ Custom Dataset Tools is a repository of convenient scripts to help label and for
 - **YOLO** format custom dataset
 - Other miscellaneous tools
 
+<a href="https://raw.githubusercontent.com/CraigWang1/custom-dataset-tools/master/images/labelling"><img src="https://raw.githubusercontent.com/CraigWang1/custom-dataset-tools/master/images/labelling.gif" title="Labelling shortcut demo"/></a>
+
 # **INSTALLATION**
 First, make sure you have [Python 3 installed](https://www.python.org/downloads/) (only for Windows; Mac and Linux already have it preinstalled).
 

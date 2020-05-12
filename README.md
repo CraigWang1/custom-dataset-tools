@@ -6,6 +6,8 @@ Custom Dataset Tools is a repository of convenient scripts to help label and for
 - **YOLO** format custom dataset
 - Other miscellaneous tools
 
+Labelling Shortcut:
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/CraigWang1/custom-dataset-tools/master/images/labelling.gif"/>
 </p>

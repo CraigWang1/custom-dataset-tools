@@ -12,7 +12,7 @@ Resizing is optional.
 usage: COCO_format.py [-h] [--image_dir IMAGE_DIR] [--annot_dir ANNOT_DIR]
                       [--save_dir SAVE_DIR] [--ext EXT]
                       [--target_size TARGET_SIZE] [--one_side ONE_SIDE]
-                      [--train_test_split TRAIN_TEST_SPLIT]
+                      [--train_test_split TRAIN_TEST_SPLIT] [--random]
 
 Put dataset in COCO format for machine learning training.
 
@@ -21,17 +21,22 @@ optional arguments:
   --image_dir IMAGE_DIR
                         Directory path to dataset images.
   --annot_dir ANNOT_DIR
-                        Directory containing xml image annotations.
+                        Directory to image annotations.
   --save_dir SAVE_DIR   Directory path to save entire COCO formatted dataset.
-                        (eg: /home/user)
-  --ext EXT             Image files extension (ex. jpg, png, etc.).
+                        (eg: /home/user).
+  --ext EXT             Image files extension to resize.
   --target_size TARGET_SIZE
                         Target size to resize as a tuple of 2 integers.
   --one_side ONE_SIDE   Side (int value) to resize image (eg. 512, 1024x556 =>
                         512x278).
   --train_test_split TRAIN_TEST_SPLIT
                         Portion of images used for training expressed as a
-                        decimal (eg. 0.90)
+                        decimal (eg. 0.9).
+  --random              Whether or not to randomize train and val sets
+                        (CAREFUL: if chosen, each time script is called on
+                        same dataset, the train and val sets will get mixed
+                        up, so val set will be contaminated with images the
+                        model already trained on.
 ```
 A note to make is that the `target_size` parameter is for resizing to a specific size that is specified (eg. "(420,69)"), while `one_side` resizing is to resize one side of the image to be the specified side (eg. 420), and the other side goes with it. One_side resizing preserves the aspect ratio, and you only specify the integer side length (eg. 512).
 
@@ -68,7 +73,7 @@ This is a script to take a directory with images and corresponding xml labels in
 usage: YOLO_format.py [-h] [--image_dir IMAGE_DIR] [--annot_dir ANNOT_DIR]
                       [--save_dir SAVE_DIR] [--ext EXT]
                       [--target_size TARGET_SIZE] [--one_side ONE_SIDE]
-                      [--train_test_split TRAIN_TEST_SPLIT]
+                      [--train_test_split TRAIN_TEST_SPLIT] [--random]
 
 Format images dataset in YOLO format.
 
@@ -77,9 +82,9 @@ optional arguments:
   --image_dir IMAGE_DIR
                         Directory path to dataset images.
   --annot_dir ANNOT_DIR
-                        Directory to image annotations; optional
+                        Directory to image annotations.
   --save_dir SAVE_DIR   Directory path to save entire Pascal VOC formatted
-                        dataset. (eg: /home/user)
+                        dataset. (eg: /home/user).
   --ext EXT             Image files extension.
   --target_size TARGET_SIZE
                         Target size to resize as a tuple of 2 integers.
@@ -87,7 +92,12 @@ optional arguments:
                         512x278).
   --train_test_split TRAIN_TEST_SPLIT
                         Portion of images used for training expressed as a
-                        decimal (eg. 0.8)
+                        decimal (eg. 0.8).
+  --random              Whether or not to randomize train and val sets
+                        (CAREFUL: if chosen, each time script is called on
+                        same dataset, the train and val sets will get mixed
+                        up, so val set will be contaminated with images the
+                        model already trained on.
 ```
 #### Example usage:
 ```
@@ -123,7 +133,7 @@ The pascal script is similar to the COCO script, except it formats a copy of a [
 usage: pascal_format.py [-h] [--image_dir IMAGE_DIR] [--annot_dir ANNOT_DIR]
                         [--save_dir SAVE_DIR] [--ext EXT]
                         [--target_size TARGET_SIZE] [--one_side ONE_SIDE]
-                        [--train_test_split TRAIN_TEST_SPLIT]
+                        [--train_test_split TRAIN_TEST_SPLIT] [--random]
 
 Format images dataset in PASCAL VOC format.
 
@@ -132,9 +142,9 @@ optional arguments:
   --image_dir IMAGE_DIR
                         Directory path to dataset images.
   --annot_dir ANNOT_DIR
-                        Directory to image annotations; optional
+                        Directory to image annotations.
   --save_dir SAVE_DIR   Directory path to save entire Pascal VOC formatted
-                        dataset. (eg: /home/user)
+                        dataset. (eg: /home/user).
   --ext EXT             Image files extension.
   --target_size TARGET_SIZE
                         Target size to resize as a tuple of 2 integers.
@@ -142,7 +152,12 @@ optional arguments:
                         512x278).
   --train_test_split TRAIN_TEST_SPLIT
                         Portion of images used for training expressed as a
-                        decimal (eg. 0.8)            
+                        decimal (eg. 0.8).
+  --random              Whether or not to randomize train and val sets
+                        (CAREFUL: if chosen, each time script is called on
+                        same dataset, the train and val sets will get mixed
+                        up, so val set will be contaminated with images the
+                        model already trained on.           
 ```
 #### Example usage:
 ```

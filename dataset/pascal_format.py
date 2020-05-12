@@ -23,16 +23,16 @@ parser.add_argument(
 )
 parser.add_argument(
     "--annot_dir",
-    help="Directory to image annotations; optional",
+    help="Directory to image annotations.",
     type=str
 )
 parser.add_argument(
     "--save_dir",
-    help="Directory path to save entire Pascal VOC formatted dataset. (eg: /home/user)",
+    help="Directory path to save entire Pascal VOC formatted dataset. (eg: /home/user).",
     type=str
 )
 parser.add_argument(
-    "--ext", help="Image files extension to resize.", default="png", type=str
+    "--ext", help="Image files extension.", default="png", type=str
 )
 parser.add_argument(
     "--target_size",
@@ -46,9 +46,14 @@ parser.add_argument(
 )
 parser.add_argument(
     "--train_test_split",
-    help="Portion of images used for training expressed as a decimal (eg. 0.8)",
+    help="Portion of images used for training expressed as a decimal (eg. 0.8).",
     default=0.9,
     type=float
+)
+parser.add_argument(
+    "--random",
+    help="Whether or not to randomize train and val sets (CAREFUL: if chosen, each time script is called on same dataset, the train and val sets will get mixed up, so val set will be contaminated with images the model already trained on.",
+    action="store_true"
 )
 
 args = parser.parse_args()
@@ -190,13 +195,16 @@ def resize_and_save(voc, fnames):  #fnames are the direct filepath
         new_bbox_xml(annot_loc, fname, new_fp, save_loc, new_w=resized_w, new_h=resized_h)    #makes the new xml file
     
 def write_train_test(voc, fnames):
-    fnames = [os.path.splitext(os.path.basename(f))[0] for f in fnames]  #gets just the base (eg. '1' from '1.png') for each file
+    # calculate number train and number test images
     num_imgs = len(fnames)  #number of images in image directory
-    ix = int(args.train_test_split * num_imgs)  #training pics index
+    num_train = int(args.train_test_split * num_imgs)  #training pics index
+    num_test = num_imgs - num_train
+    extract_interval = (num_imgs // num_test)   # (eg. pick every 4th file from the list)
     
-    # split trainval and test
-    trainval = sorted(fnames[:ix], key=numericalSort)
-    test = sorted(fnames[ix:], key=numericalSort)
+    # split train and test         
+    # subtract one from the ith file index because lists are 0 indexed so 4th file = list[3]
+    test = sorted([fnames[(i * extract_interval) - 1] for i in range(1, num_test+1)], key=numericalSort)  #extract each test image (eg. each 5th image = test)
+    trainval = sorted([f for f in fnames if f not in test], key=numericalSort)  #the train set is the remaining images not in test set
     
     print('\nWriting trainval filenames...')
     with open(os.path.join(voc, 'ImageSets/Main/trainval.txt'), 'a+') as f:
@@ -211,14 +219,21 @@ def write_train_test(voc, fnames):
     print('\nSuccessfully formatted to Pascal VOC format!')
     print('Dataset saved at:', os.path.join(voc) + '\n')
 
-
-if __name__ == "__main__":
+def main():
+    """Main function to format dset."""
     voc_path = os.path.join(args.save_dir, 'data/VOCdevkit/VOC2007/')  #path of voc format
     create_dirs(voc_path)  #creates the pascal directories
     
     #fetches all the image filenames
     fnames = glob.glob(os.path.join(args.image_dir, "*.{}".format(args.ext)))   #gets all file names in img_dir
-    random.shuffle(fnames)  #shuffle them in random order to get balanced train and val sets
-    
+    assert len(fnames) > 0, "No images matching image directory and provided image extension were found. Try changing the image directory or the file extension (EXT, eg. 'jpg')."
+    if args.random:
+        random.shuffle(fnames)  #shuffle them in random order to get balanced train and val sets
+    else:
+        fnames.sort(key=numericalSort)  #otherwise sort them to have consistent trainval splits
+    # format dset
     resize_and_save(voc_path, fnames)  #resizes images and annotations (if provided) and saves
     write_train_test(voc_path, fnames) #writes the trainval.txt and test.txt files
+    
+if __name__ == "__main__":
+    main()

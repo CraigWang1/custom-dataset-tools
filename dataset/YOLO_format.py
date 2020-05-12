@@ -24,16 +24,16 @@ parser.add_argument(
 )
 parser.add_argument(
     "--annot_dir",
-    help="Directory to image annotations; optional",
+    help="Directory to image annotations.",
     type=str
 )
 parser.add_argument(
     "--save_dir",
-    help="Directory path to save entire Pascal VOC formatted dataset. (eg: /home/user)",
+    help="Directory path to save entire Pascal VOC formatted dataset. (eg: /home/user).",
     type=str
 )
 parser.add_argument(
-    "--ext", help="Image files extension to resize.", default="png", type=str
+    "--ext", help="Image files extension.", default="png", type=str
 )
 parser.add_argument(
     "--target_size",
@@ -47,9 +47,14 @@ parser.add_argument(
 )
 parser.add_argument(
     "--train_test_split",
-    help="Portion of images used for training expressed as a decimal (eg. 0.8)",
+    help="Portion of images used for training expressed as a decimal (eg. 0.8).",
     default=0.9,
     type=float
+)
+parser.add_argument(
+    "--random",
+    help="Whether or not to randomize train and val sets (CAREFUL: if chosen, each time script is called on same dataset, the train and val sets will get mixed up, so val set will be contaminated with images the model already trained on.",
+    action="store_true"
 )
 
 args = parser.parse_args()
@@ -154,7 +159,23 @@ def xml_to_txt(xml_file, txt_file, categories):
             bbox_w = (xmax-xmin)/width
             bbox_h = (ymax-ymin)/height
             f.write("{} {} {} {} {}\n".format(category_id, x_center, y_center, bbox_w, bbox_h))
-        
+
+def check_corresp(fnames):
+    """Helper function to check that all images have corresponding annotations."""
+    print("\nMaking sure that each image has a corresponding annotation file...")
+    no_annots = []  # list of images without annotations
+    for f in tqdm(fnames):
+        corresp_xml = osp.splitext(osp.basename(f))[0] + '.xml'  #eg. /home/5.png -> 5.xml
+        corresp_xml = osp.join(args.annot_dir, corresp_xml)      #eg. 5.xml -> /annots/5.xml
+        if not os.path.exists(corresp_xml):
+            no_annots.append(f)
+    if no_annots:
+        print("") #print empty line, look aesthetic
+        for f in no_annots:   #print each file without annot
+            print("Error! Image {} does not have an xml annotation.".format(f))
+        print("") #print another empty line, look aesthetic
+        raise FileNotFoundError("Images do not have corresponding xmls. Annotate all images.")
+    
 ##################################################################MAIN FUNCTIONS
 def create_dirs(save_dir):
     print("\nCreating save directories...") 
@@ -167,9 +188,13 @@ def create_dirs(save_dir):
         
 def copy():
     fnames = glob.glob(os.path.join(args.image_dir, "*.{}".format(args.ext)))   #gets all file names in img_dir
-    assert len(fnames) > 0, "No images matching image directory and provided image extension were found. Try changing the image directory of the file extension (EXT, eg. 'jpg')"
-    random.shuffle(fnames)  #shuffle them in random order to get balanced train and val sets
-        
+    assert len(fnames) > 0, "No images matching image directory and provided image extension were found. Try changing the image directory or the file extension (EXT, eg. 'jpg')."
+    check_corresp(fnames)  #make sure each image has a corresponding annotation
+    if args.random:
+        random.shuffle(fnames)  #shuffle them in random order to get balanced train and val sets
+    else:
+        fnames.sort(key=numericalSort)   #otherwise just sort them so we can take consistent intervals
+    
     #gets all of the corresponding xml file names (not full path, just name with xml extension)
     xmls = [osp.splitext(osp.basename(f))[0] + '.xml' for f in fnames] 
     xmls = [osp.join(args.annot_dir, xml) for xml in xmls]
@@ -208,12 +233,16 @@ def helper_copy(imgs, xmls, categories):
     return new_fpaths
             
 def write_train_test(fnames):
+    # calculate number train and number test images
     num_imgs = len(fnames)  #number of images in image directory
-    ix = int(args.train_test_split * num_imgs)  #training pics index
+    num_train = int(args.train_test_split * num_imgs)  #training pics index
+    num_test = num_imgs - num_train
+    extract_interval = (num_imgs // num_test)   # (eg. pick every 4th file from the list)
     
-    # split train and test
-    train = sorted(fnames[:ix], key=numericalSort)
-    test = sorted(fnames[ix:], key=numericalSort)
+    # split train and test         
+    # subtract one from the ith file index because lists are 0 indexed so 4th file = list[3]
+    test = sorted([fnames[(i * extract_interval) - 1] for i in range(1, num_test+1)], key=numericalSort)  #extract each test image (eg. each 5th image = test)
+    train = sorted([f for f in fnames if f not in test], key=numericalSort)  #the train set is the remaining images not in test set
     
     print('\nWriting train filenames...')
     with open(os.path.join(args.save_dir, 'data/train.txt'), 'a+') as f:

@@ -7,7 +7,7 @@ Created on Sat Jan 25 13:55:44 2020
 Script to format an image dataset to COCO format.
 """
 
-import json, os, glob, cv2, argparse, shutil, random
+import json, os, glob, cv2, argparse, shutil, random, re
 import os.path as osp
 import xml.etree.ElementTree as ET 
 from tqdm import tqdm
@@ -27,7 +27,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "--save_dir",
-    help="Directory path to save entire COCO formatted dataset. (eg: /home/user)",
+    help="Directory path to save entire COCO formatted dataset. (eg: /home/user).",
     default="./",
     type=str
 )
@@ -46,9 +46,14 @@ parser.add_argument(
 )
 parser.add_argument(
     "--train_test_split",
-    help="Portion of images used for training expressed as a decimal (eg. 0.9)",
+    help="Portion of images used for training expressed as a decimal (eg. 0.9).",
     default=0.9,
     type=float
+)
+parser.add_argument(
+    "--random",
+    help="Whether or not to randomize train and val sets (CAREFUL: if chosen, each time script is called on same dataset, the train and val sets will get mixed up, so val set will be contaminated with images the model already trained on.",
+    action="store_true"
 )
 
 args = parser.parse_args()
@@ -62,10 +67,6 @@ if args.target_size:
     msg = "--target_size must be a tuple of 2 integers"
     assert isinstance(args.target_size, tuple) and len(args.target_size) == 2, msg  
     
-#set up coco directory paths
-coco = osp.join(args.save_dir, 'data/COCO')  
-coco_imgs_dir = osp.join(coco, 'images')
-
 ######################################################### ANNOTATIONS STUFF
 
 START_BOUNDING_BOX_ID = 1
@@ -220,10 +221,50 @@ def new_dims(og_w, og_h, common_size):
         resized_width = common_size
     return resized_width, resized_height
 
+# helper function to sort files by number
+def numericalSort(value):
+    numbers = re.compile(r'(\d+)')
+    parts = numbers.split(value)
+    parts[1::2] = map(int, parts[1::2])
+    return parts
+
+def train_test_split(fnames):
+    """Helper function to get consistent train and val sets."""
+    # calculate number train and number test images
+    num_files = len(fnames)  #number of images in image directory
+    num_train = int(args.train_test_split * num_files)  #training pics index
+    num_test = num_files - num_train
+    extract_interval = (num_files // num_test)   # (eg. pick every 4th file from the list)
+    
+    # split train and test         
+    # subtract one from the ith file index because lists are 0 indexed so 4th file = list[3]
+    test = sorted([fnames[(i * extract_interval) - 1] for i in range(1, num_test+1)], key=numericalSort)  #extract each test image (eg. each 5th image = test)
+    train = sorted([f for f in fnames if f not in test], key=numericalSort)  #the train set is the remaining images not in test set
+    
+    return train, test  #return train and test sets
+
+def check_corresp(fnames):
+    """Helper function to check that all images have corresponding annotations."""
+    print("\nMaking sure that each image has a corresponding annotation file...")
+    no_annots = []  # list of images without annotations
+    for f in tqdm(fnames):
+        corresp_xml = osp.splitext(osp.basename(f))[0] + '.xml'  #eg. /home/5.png -> 5.xml
+        corresp_xml = osp.join(args.annot_dir, corresp_xml)      #eg. 5.xml -> /annots/5.xml
+        if not os.path.exists(corresp_xml):
+            no_annots.append(f)
+    if no_annots:
+        print("") #print empty line, look aesthetic
+        for f in no_annots:   #print each file without annot
+            print("Error! Image {} does not have an xml annotation.".format(f))
+        print("") #print another empty line, look aesthetic
+        raise FileNotFoundError("Images do not have corresponding xmls. Annotate all images.")
+    
+
 ############################################## END ANNOTATIONS STUFF/HELPER FUNCTIONS
 
 def create_dirs():
-    #coco voc dataset path    
+    #coco dataset path    
+    coco = osp.join(args.save_dir, 'data/COCO')
     sub_dirs = ['annotations','images', 'images/train2017', 'images/val2017']  #sub_directories for voc
     
     print('\nCreating COCO directories...')
@@ -233,21 +274,21 @@ def create_dirs():
 
 def copy():
     fnames = glob.glob(os.path.join(args.image_dir, "*.{}".format(args.ext)))   #gets all file names in img_dir
-    random.shuffle(fnames)  #shuffle them in random order to get balanced train and val sets
-        
+    assert len(fnames) > 0, "No images matching image directory and provided image extension were found. Try changing the image directory or the file extension (EXT, eg. 'jpg')."
+    check_corresp(fnames)  #make sure each image has a corresponding annotation.
+    if args.random:
+        print("random")
+        random.shuffle(fnames)  #shuffle them in random order to get balanced train and val sets
+    else:
+        fnames.sort(key=numericalSort)  #otherwise sort by number so get consistent sets
+    
     #gets all of the corresponding xml file names (not full path, just name with xml extension)
     xmls = [osp.splitext(osp.basename(f))[0] + '.xml' for f in fnames] 
     xmls = [osp.join(args.annot_dir, xml) for xml in xmls]
 
     #split train and validations images and annotations
-    num_imgs = len(fnames)
-    ix = int(num_imgs * args.train_test_split)
-    
-    #Train test split
-    train_imgs = fnames[:ix]
-    train_annots = xmls[:ix]
-    val_imgs = fnames[ix:]
-    val_annots = xmls[ix:]
+    train_imgs, val_imgs = train_test_split(fnames)
+    train_annots, val_annots = train_test_split(xmls)
     
     #train_dims = list of image dimensions for each image in the set
     train_dims = helper_copy(train_imgs, mode='train')  #resizes and saves the images
@@ -259,6 +300,7 @@ def copy():
     helper_convert(val_annots, val_dims, categories, mode='val')
 
 def helper_copy(imgs, mode='train'):
+    coco_imgs_dir = osp.join(args.save_dir, 'data/COCO/images')
     img_dir = osp.join(coco_imgs_dir, '{}2017'.format(mode))
     print('\nCopying over {} images...'.format(mode))
     resized_dims = []  #list of resized dimensions, used later for correcting annotations
@@ -280,6 +322,7 @@ def helper_copy(imgs, mode='train'):
 
 def helper_convert(annots, dims, categories, mode='train'):
     #set json filepath
+    coco = osp.join(args.save_dir, 'data/COCO')
     json = osp.join(coco, 'annotations/instances_{}2017.json'.format(mode))
     print('\nConverting {} annotations to coco json format...'.format(mode))
     convert(annots, dims, json, categories)
@@ -287,5 +330,6 @@ def helper_convert(annots, dims, categories, mode='train'):
 if __name__ == '__main__':
     create_dirs()
     copy()
+    coco = osp.join(args.save_dir, 'data/COCO')
     print('\nDone! Successfully created custom dataset in COCO format.')
     print('Dataset is stored at', coco + '\n')

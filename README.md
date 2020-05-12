@@ -4,10 +4,7 @@ Custom Dataset Tools is a repository of convenient scripts to help label and for
 - **COCO** format custom dataset
 - **Pascal VOC** format custom dataset
 - **YOLO** format custom dataset
-- Resize directory of images/annotations
-- Extract images/annotations from nested sub directories
-- Convert Pascal (labelImg) annotations to COCO json
-- Renumber directory of images and labelImg (Pascal VOC) annotations to sequential integer order (eg. 0.png, 0.xml, 1.png, 1.xml, etc.)
+- Other miscellaneous tools
 
 # **INSTALLATION**
 First, make sure you have [Python 3 installed](https://www.python.org/downloads/) (only for Windows; Mac and Linux already have it preinstalled).

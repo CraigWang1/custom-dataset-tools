@@ -12,7 +12,7 @@ Labelling Shortcut:
   <img src="https://raw.githubusercontent.com/CraigWang1/custom-dataset-tools/master/images/labelling.gif"/>
 </p>
 
-Format custom dataset to COCO example:
+Format custom dataset to COCO:
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/CraigWang1/custom-dataset-tools/master/images/COCO_format.png"/>

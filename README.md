@@ -18,7 +18,7 @@ Format custom dataset to COCO:
   <img src="https://raw.githubusercontent.com/CraigWang1/custom-dataset-tools/master/images/COCO_format.png"/>
 </p>
 
-# **Installation**
+## **Installation**
 First, make sure you have [Python 3 installed](https://www.python.org/downloads/) (only for Windows; Mac and Linux already have it preinstalled).
 
 Open terminal and copy-paste (ctrl-shift-v for linux) the following commands:

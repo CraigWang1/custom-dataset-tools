@@ -10,7 +10,7 @@ Custom Dataset Tools is a repository of convenient scripts to help label and for
   <img src="https://raw.githubusercontent.com/CraigWang1/custom-dataset-tools/master/images/labelling.gif"/>
 </p>
 
-# **INSTALLATION**
+# **Installation**
 First, make sure you have [Python 3 installed](https://www.python.org/downloads/) (only for Windows; Mac and Linux already have it preinstalled).
 
 Open terminal and copy-paste (ctrl-shift-v for linux) the following commands:

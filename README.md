@@ -9,6 +9,10 @@ Custom Dataset Tools is a repository of convenient scripts to help label and for
 <p align="center">
   <img src="https://raw.githubusercontent.com/CraigWang1/custom-dataset-tools/master/images/labelling.gif"/>
 </p>
+Format custom dataset to COCO example:
+<p align="center">
+  <img src="https://raw.githubusercontent.com/CraigWang1/custom-dataset-tools/master/images/COCO_format.png"/>
+</p>
 
 # **Installation**
 First, make sure you have [Python 3 installed](https://www.python.org/downloads/) (only for Windows; Mac and Linux already have it preinstalled).

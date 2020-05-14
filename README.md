@@ -5,7 +5,7 @@ Custom Dataset Tools contains convenient scripts to help label and format custom
 
 Current tools:
 - [LabelImg](https://github.com/tzutalin/labelImg.git) fast shortcut
-- Formatting custom datasets to:
+- Format custom datasets to:
   - **COCO**
   - **Pascal VOC** 
   - **YOLO** 

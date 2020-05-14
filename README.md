@@ -1,9 +1,10 @@
 # Custom Dataset Tools
 Custom Dataset Tools is a repository of convenient scripts to help label and format custom datasets to train machine learning object detectors.
 - [LabelImg](https://github.com/tzutalin/labelImg.git) fast shortcut
-- **COCO** format custom dataset
-- **Pascal** format custom dataset
-- **YOLO** format custom dataset
+- Format custom dataset to the following formats:
+  - **COCO**
+  - **Pascal VOC** 
+  - **YOLO** 
 - Other miscellaneous tools
 
 Labelling Shortcut:

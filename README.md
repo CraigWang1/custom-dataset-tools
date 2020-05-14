@@ -1,9 +1,9 @@
 # Custom Dataset Tools
 With the emergence of object detection in the past decade due to the unrelenting improvements in machine learning, it is more important than ever to be able to simply create and format datasets to efficiently train models. However, this can be a time consuming and confusing task because each implementation might require a different format, which is where this repository comes in.
 
-Custom Dataset Tools contains convenient scripts to help label and format custom datasets to train machine learning object detectors.
+Custom Dataset Tools contains convenient scripts to help label and format custom datasets to train machine learning object detectors. All of the scripts presumes that [LabelImg](https://github.com/tzutalin/labelImg.git) is used to annotate data.
 - [LabelImg](https://github.com/tzutalin/labelImg.git) fast shortcut
-- Format custom dataset to the following formats:
+- Supports the following formats:
   - **COCO**
   - **Pascal VOC** 
   - **YOLO** 

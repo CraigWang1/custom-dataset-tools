@@ -22,7 +22,4 @@ pip install -r requirements.txt
 ```
 To use tools, navigate to the `/dataset` or the `/labelling` directories for more instructions.
 
-
-
-I hope these tools help; feel free to let me know should any issues/questions arise.
 Original xml_to_json script: https://github.com/Tony607/voc2coco

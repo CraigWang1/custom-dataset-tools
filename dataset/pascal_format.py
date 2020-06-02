@@ -8,7 +8,7 @@ Created on Fri Jan 17 22:24:55 2020
 Script to format a dataset in PASCAL VOC format.
 """
 
-import os, glob, cv2, argparse, random, re, shutil
+import os, glob, cv2, argparse, random, re, shutil, math
 import xml.etree.ElementTree as ET 
 from tqdm import tqdm
 from pascal_voc_writer import Writer
@@ -29,6 +29,7 @@ parser.add_argument(
 parser.add_argument(
     "--save_dir",
     help="Directory path to save entire Pascal VOC formatted dataset. (eg: /home/user).",
+    default="./",
     type=str
 )
 parser.add_argument(
@@ -196,14 +197,14 @@ def resize_and_save(voc, fnames):  #fnames are the direct filepath
     
 def write_train_test(voc, fnames):
     # calculate number train and number test images
-    num_imgs = len(fnames)  #number of images in image directory
-    num_train = int(args.train_test_split * num_imgs)  #training pics index
-    num_test = num_imgs - num_train
-    extract_interval = (num_imgs // num_test)   # (eg. pick every 4th file from the list)
+    num_files = len(fnames)  #number of images in image directory
+    num_train = int(args.train_test_split * num_files)  #training pics index
+    num_test = num_files - num_train
+    extract_interval = math.ceil(num_files / num_test)   # (eg. pick every 4th file from the list)
     
     # split train and test         
     # subtract one from the ith file index because lists are 0 indexed so 4th file = list[3]
-    test = sorted([fnames[(i * extract_interval) - 1] for i in range(1, num_test+1)], key=numericalSort)  #extract each test image (eg. each 5th image = test)
+    test = sorted(fnames[::extract_interval], key=numericalSort)  #extract each test image (eg. each 5th image = test)
     trainval = sorted([f for f in fnames if f not in test], key=numericalSort)  #the train set is the remaining images not in test set
     
     print('\nWriting trainval filenames...')

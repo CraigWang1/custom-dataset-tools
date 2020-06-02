@@ -7,7 +7,7 @@ Created on Sat Jan 25 13:55:44 2020
 Script to format an image dataset to COCO format.
 """
 
-import json, os, glob, cv2, argparse, shutil, random, re
+import json, os, glob, cv2, argparse, shutil, random, re, math
 import os.path as osp
 import xml.etree.ElementTree as ET 
 from tqdm import tqdm
@@ -234,11 +234,11 @@ def train_test_split(fnames):
     num_files = len(fnames)  #number of images in image directory
     num_train = int(args.train_test_split * num_files)  #training pics index
     num_test = num_files - num_train
-    extract_interval = (num_files // num_test)   # (eg. pick every 4th file from the list)
+    extract_interval = math.ceil(num_files / num_test)   # (eg. pick every 4th file from the list)
     
     # split train and test         
     # subtract one from the ith file index because lists are 0 indexed so 4th file = list[3]
-    test = sorted([fnames[(i * extract_interval) - 1] for i in range(1, num_test+1)], key=numericalSort)  #extract each test image (eg. each 5th image = test)
+    test = sorted(fnames[::extract_interval], key=numericalSort)  #extract each test image (eg. each 5th image = test)
     train = sorted([f for f in fnames if f not in test], key=numericalSort)  #the train set is the remaining images not in test set
     
     return train, test  #return train and test sets

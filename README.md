@@ -18,7 +18,7 @@ Open terminal and copy-paste (ctrl-shift-v for linux) the following commands:
 ```
 git clone https://github.com/CraigWang1/Convenient-ML-custom-dataset-tools.git
 cd custom-dataset-tools
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 To use tools, navigate to the `/dataset` or the `/labelling` directories for more instructions.
 

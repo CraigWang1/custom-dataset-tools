@@ -101,7 +101,7 @@ optional arguments:
 ```
 #### Example usage:
 ```
-$ python3 pascal_format.py \
+$ python3 YOLO_format.py \
   --image_dir /home/joe/img_dset \
   --annot_dir /home/joe/img_dset \
   --save_dir /home/joe \

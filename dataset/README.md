@@ -36,7 +36,7 @@ optional arguments:
                         (CAREFUL: if chosen, each time script is called on
                         same dataset, the train and val sets will get mixed
                         up, so val set will be contaminated with images the
-                        model already trained on.
+                        model already trained on.)
 ```
 A note to make is that the `target_size` parameter is for resizing to a specific size that is specified (eg. "(420,69)"), while `one_side` resizing is to resize one side of the image to be the specified side (eg. 420), and the other side goes with it. One_side resizing preserves the aspect ratio, and you only specify the integer side length (eg. 512).
 
@@ -97,7 +97,7 @@ optional arguments:
                         (CAREFUL: if chosen, each time script is called on
                         same dataset, the train and val sets will get mixed
                         up, so val set will be contaminated with images the
-                        model already trained on.
+                        model already trained on.)
 ```
 #### Example usage:
 ```
@@ -157,7 +157,7 @@ optional arguments:
                         (CAREFUL: if chosen, each time script is called on
                         same dataset, the train and val sets will get mixed
                         up, so val set will be contaminated with images the
-                        model already trained on.           
+                        model already trained on.)        
 ```
 #### Example usage:
 ```

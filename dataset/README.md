@@ -83,7 +83,7 @@ optional arguments:
                         Directory path to dataset images.
   --annot_dir ANNOT_DIR
                         Directory to image annotations.
-  --save_dir SAVE_DIR   Directory path to save entire Pascal VOC formatted
+  --save_dir SAVE_DIR   Directory path to save entire YOLO formatted
                         dataset. (eg: /home/user).
   --ext EXT             Image files extension.
   --target_size TARGET_SIZE

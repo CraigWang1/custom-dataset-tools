@@ -140,7 +140,7 @@ def xml_extract(value, root):   #helper function to extract a piece of data
     values = list()
     for value in root.iter(value):
         try:
-            values.append(int(value.text))
+            values.append(int(float(value.text)))
         except ValueError:
             values.append(value.text)   #for the labelname, as you can't turn a word into an int
     return values

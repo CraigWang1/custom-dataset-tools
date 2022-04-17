@@ -142,18 +142,18 @@ def xml_to_txt(xml_file, txt_file, categories):
     tree = ET.parse(xml_file)
     root = tree.getroot()
     size = get_and_check(root, "size", 1)
-    width = int(get_and_check(size, "width", 1).text)
-    height = int(get_and_check(size, "height", 1).text)
+    width = int(float(get_and_check(size, "width", 1).text))
+    height = int(float(get_and_check(size, "height", 1).text))
     #convert to yolo bbox
     with open(txt_file, 'a+') as f:
         for obj in get(root, "object"):
             category = get_and_check(obj, "name", 1).text
             category_id = categories[category]
             bndbox = get_and_check(obj, "bndbox", 1)
-            xmin = int(get_and_check(bndbox, "xmin", 1).text) 
-            ymin = int(get_and_check(bndbox, "ymin", 1).text) 
-            xmax = int(get_and_check(bndbox, "xmax", 1).text)
-            ymax = int(get_and_check(bndbox, "ymax", 1).text)
+            xmin = int(float(get_and_check(bndbox, "xmin", 1).text))
+            ymin = int(float(get_and_check(bndbox, "ymin", 1).text))
+            xmax = int(float(get_and_check(bndbox, "xmax", 1).text))
+            ymax = int(float(get_and_check(bndbox, "ymax", 1).text))
             #adjust to yolo: <class> <x_center> <y_center> <box_width> <box_height> 
             x_center = ((xmin+xmax)/2)/width   #relative to image (between 0-1)
             y_center = ((ymin+ymax)/2)/height

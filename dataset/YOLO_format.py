@@ -267,8 +267,6 @@ def write_train_test(fnames):
     train = sorted([f for f in fnames if f not in test], key=numericalSort)  #the train set is the remaining images not in test set
     
     print('\nWriting train filenames...')
-    print(f'fnames: {fnames}')
-    print(f'train: {train}')
     with open(os.path.join(args.save_dir, 'data/train.txt'), 'a+') as f:
         for im in tqdm(train):
             f.write(im + '\n')   #writes the train filepaths
@@ -308,7 +306,7 @@ def main():
     """Main function that completes entire operation"""
     create_dirs(args.save_dir)
     copy()
-    copy_no_label_dir()
+    copy_no_label()
     print('\nSuccessfully formatted to YOLO format!')
     print('Dataset saved at:', os.path.join(args.save_dir, 'data') + '\n')
 

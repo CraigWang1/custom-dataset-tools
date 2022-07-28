@@ -57,6 +57,10 @@ parser.add_argument(
     help="Whether or not to randomize train and val sets (CAREFUL: if chosen, each time script is called on same dataset, the train and val sets will get mixed up, so val set will be contaminated with images the model already trained on.",
     action="store_true"
 )
+parser.add_argument(
+    "--no_label_dir",
+    type=str
+)
 
 args = parser.parse_args()
 # parse the arguments
@@ -208,6 +212,21 @@ def copy():
     write_obj_names(categories)  #write obj.names file
     write_obj_data(num_classes=len(categories))  #write obj.data file
 
+def copy_no_label():
+    if not args.no_label_dir:
+        return
+    fnames = glob.glob(os.path.join(args.no_label_dir, "*.{}".format(args.ext)))   #gets all file names in img_dir
+    assert len(fnames) > 0, "No images matching image directory and provided image extension were found. Try changing the image directory or the file extension (EXT, eg. 'jpg')."
+    if args.random:
+        random.shuffle(fnames)  #shuffle them in random order to get balanced train and val sets
+    else:
+        fnames.sort(key=numericalSort)   #otherwise just sort them so we can take consistent intervals
+    
+    new_fpaths = helper_copy(fnames, None, None)  #resizes and saves the images
+    
+    # write data files
+    write_train_test(new_fpaths) #split train and test sets
+
 def helper_copy(imgs, xmls, categories):
     img_dir = osp.join(args.save_dir, 'data/obj')
     new_fpaths = []  #return list of new img paths later to write train/test sets
@@ -225,14 +244,16 @@ def helper_copy(imgs, xmls, categories):
         else:    #if no resizing is selected, then just copy it
             shutil.copyfile(f, new_fpath)
         #now do format corresponding annotation
-        xml = base_fname + '.xml'
-        xml = osp.join(args.annot_dir, xml)
-        txt = base_fname + '.txt'
-        txt = osp.join(img_dir, txt)
-        xml_to_txt(xml, txt, categories)
+        if xmls is not None:
+            xml = base_fname + '.xml'
+            xml = osp.join(args.annot_dir, xml)
+            txt = base_fname + '.txt'
+            txt = osp.join(img_dir, txt)
+            xml_to_txt(xml, txt, categories)
         new_fpaths.append(new_fpath)
     return new_fpaths
             
+
 def write_train_test(fnames):
     # calculate number train and number test images
     num_files = len(fnames)  #number of images in image directory
@@ -246,6 +267,8 @@ def write_train_test(fnames):
     train = sorted([f for f in fnames if f not in test], key=numericalSort)  #the train set is the remaining images not in test set
     
     print('\nWriting train filenames...')
+    print(f'fnames: {fnames}')
+    print(f'train: {train}')
     with open(os.path.join(args.save_dir, 'data/train.txt'), 'a+') as f:
         for im in tqdm(train):
             f.write(im + '\n')   #writes the train filepaths
@@ -285,6 +308,7 @@ def main():
     """Main function that completes entire operation"""
     create_dirs(args.save_dir)
     copy()
+    copy_no_label_dir()
     print('\nSuccessfully formatted to YOLO format!')
     print('Dataset saved at:', os.path.join(args.save_dir, 'data') + '\n')
 

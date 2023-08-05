@@ -34,8 +34,8 @@ python3 /home/avbotz/train/YOLO_format.py --train_test_split 0.8 \
 --annot_dir $current_dir/Annotations \
 --save_dir $current_dir --ext $image_extension 
 
+trap "rm -rf $file && echo $file is deleted" SIGINT
+
 yolo task=detect mode=train \
 model=$model_location \
 data=data.yaml imgsz=640 plots=True device=0 epochs=200 save_period=2
-
-trap "rm -rf $file" INT

@@ -62,10 +62,6 @@ parser.add_argument(
     "--no_label_dir",
     type=str
 )
-parser.add_argument(
-    "--current_dir",
-    type=str
-)
 
 args = parser.parse_args()
 # parse the arguments
@@ -320,12 +316,12 @@ def main():
     print('Saving as yaml...')
     
     
-    with open('data.yaml', 'w') as f, open(args.current_dir+'/data/obj.data', 'r') as n, open(args.current_dir+'/data/obj.names', 'r') as g:
-        f.write('train: ' + args.current_dir + '/data/train.txt\n')
-        f.write('val: ' args.current_dir +'/data/test.txt\n')
+    with open('data.yaml', 'w') as f, open(args.save_dir + '/data/obj.data', 'r') as n, open(args.save_dir + '/data/obj.names', 'r') as g:
+        f.write('train: ' + args.save_dir + '/data/train.txt\n')
+        f.write('val: ' + args.save_dir +'/data/test.txt\n')
         a = g.readlines()
-        f.write('nc: '+str(len(a)) + '\n')
-        f.write('names: '+str(a))
+        f.write('nc: ' + str(len(a)) + '\n')
+        f.write('names: '+ str(a))
 
 
 if __name__ == "__main__":

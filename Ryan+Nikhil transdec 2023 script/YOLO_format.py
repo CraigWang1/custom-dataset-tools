@@ -63,11 +63,7 @@ parser.add_argument(
     type=str
 )
 parser.add_argument(
-    "--model",
-    type=str
-)
-parser.add_argument(
-    "--time",
+    "--current_dir",
     type=str
 )
 
@@ -324,9 +320,9 @@ def main():
     print('Saving as yaml...')
     
     
-    with open('data.yaml', 'w') as f, open('/home/avbotz/train/'+args.model+'/'+args.time+'/data/obj.data', 'r') as n, open('/home/avbotz/train/'+args.model+'/'+args.time+'/data/obj.names', 'r') as g:
-        f.write('train: /home/avbotz/train/'+args.model+'/'+args.time+'/data/train.txt\n')
-        f.write('val: /home/avbotz/train/'+args.model+'/'+args.time+'/data/test.txt\n')
+    with open('data.yaml', 'w') as f, open(args.current_dir+'/data/obj.data', 'r') as n, open(args.current_dir+'/data/obj.names', 'r') as g:
+        f.write('train: ' + args.current_dir + '/data/train.txt\n')
+        f.write('val: ' args.current_dir +'/data/test.txt\n')
         a = g.readlines()
         f.write('nc: '+str(len(a)) + '\n')
         f.write('names: '+str(a))

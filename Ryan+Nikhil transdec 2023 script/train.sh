@@ -21,17 +21,19 @@ echo now training $model_name with yolov8
 time=$(date +"%Y_%m_%d_%I_%M_%p")
 echo time is now $time
 echo unzipping...
-mkdir -p /home/avbotz/train/$model_name/$time/
-unzip $file -d /home/avbotz/train/$model_name/$time/
-
+mkdir -p $(pwd)/$model_name/$time/
 cd $model_name/$time
+current_dir=$(pwd)
+
+unzip $file -d $(pwd)
+
 
 echo converting xml to YOLO
 python3 /home/avbotz/train/YOLO_format.py --train_test_split 0.8 \
---image_dir /home/avbotz/train/$model_name/$time/JPEGImages \
---annot_dir /home/avbotz/train/$model_name/$time/Annotations \
---save_dir /home/avbotz/train/$model_name/$time --ext $image_extension \
---model $model_name --time $time
+--image_dir $current_dir/JPEGImages \
+--annot_dir $current_dir/Annotations \
+--save_dir $current_dir --ext $image_extension \
+--dir $current_dir
 
 yolo task=detect mode=train \
 model=$model_location \
